@@ -1,0 +1,107 @@
+/* ===== 主题色配置 ===== */
+@colorPrimary: #6bc30d;
+@colorPrimaryLight: lighten(@colorPrimary, 8%);
+@colorPrimaryDark: darken(@colorPrimary, 8%);
+@colorPrimaryFade: fade(@colorPrimary, 8%);
+
+@colorAssist: #2db7f5;
+@colorAssistLight: lighten(@colorAssist, 8%);
+@colorAssistDark: darken(@colorAssist, 8%);
+@colorAssistFade: fade(@colorAssist, 8%);
+
+@colorSuccess: #67c23a;
+@colorSuccessLight: lighten(@colorSuccess, 8%);
+@colorSuccessDark: darken(@colorSuccess, 8%);
+@colorSuccessFade: fade(@colorSuccess, 8%);
+
+@colorWarning: #e6a23c;
+@colorWarningLight: lighten(@colorWarning, 8%);
+@colorWarningDark: darken(@colorWarning, 8%);
+@colorWarningFade: fade(@colorWarning, 8%);
+
+@colorError: #f56c6c;
+@colorErrorLight: lighten(@colorError, 8%);
+@colorErrorDark: darken(@colorError, 8%);
+@colorErrorFade: fade(@colorError, 8%);
+
+@colorInfo: #909399;
+@colorInfoLight: lighten(@colorInfo, 8%);
+@colorInfoDark: darken(@colorInfo, 8%);
+@colorInfoFade: fade(@colorInfo, 8%);
+
+@color: linear-gradient(90deg, @colorAssist, @colorPrimary);
+@colorReverse: linear-gradient(270deg, @colorAssist, @colorPrimary);
+@colorCol: linear-gradient(@colorAssist, @colorPrimary);
+@colorActive: {
+  background-image: @color;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-decoration-break: clone;
+
+  @media screen and (max-width: @breakpoints-sm) {
+    max-width: @containerMaxWidth-sm;
+    color: #fff;
+    background-clip: none;
+    -webkit-text-fill-color: @colorPrimary; 
+  }
+  
+}
+
+
+/* ===== 字体颜色配置 ===== */
+@colorTextTitle: #282828;
+@colorTextContent: #414240;
+@colorTextSub: #808695;
+@colorTextLight: #aeaeae;
+@colorTextDisable: #c5c8ce;
+@colorTextSilver: #f1f1f1;
+@colorTextWhite: #ffffff;
+@colorFooterText: #60606d;
+
+/* ===== 边框颜色配置 ===== */
+@colorBorder: #eaeaea;
+@colorBorderLight: fade(@colorBorder, 50%);
+
+/* ===== 背景颜色配置 ===== */
+@colorBgBody: #efefee;
+@colorBg: #ffffff;
+
+@colorBgSideMenu: #363D4D;
+@colorBgSideMenuItemActive: #474C5E;
+
+/* ===== 各种高度配置 ===== */
+@heightHeader: 60px;
+@heightFooter: 230px;
+
+/* ===== 响应式相关变量 ===== */
+// 前缀名称
+@prefix: s;
+// 容器名
+@container: container;
+// 行名
+@row-name: row;
+// 列名
+@columns-name: col;
+// 列边距
+@columns-padding: 8px;
+// 栅格数
+@grid-count: 60;
+
+// 断点配置
+@breakpoints-xs: 0;
+// 0 - 576 Small screen / phone
+@breakpoints-sm: 576px;
+// 576 - 768 Medium screen / tablet
+@breakpoints-md: 768px;
+// 768 - 992 Large screen / desktop
+@breakpoints-lg: 992px;
+// 992 - 1200 Extra large screen / wide desktop
+@breakpoints-xl: 1200px;
+
+// 容器宽度配置
+@containerMaxWidth-xs: 0;
+@containerMaxWidth-sm: 640px;
+@containerMaxWidth-md: 767px;
+@containerMaxWidth-lg: 970px;
+@containerMaxWidth-xl: 1280px;

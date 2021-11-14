@@ -1,0 +1,28 @@
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+
+.transform-enter,
+.transform-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+.transform-enter-active,
+.transform-leave-active {
+  transition: all 0.4s ease;
+}

@@ -1,0 +1,112 @@
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex_start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex_end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
+body {
+  font-family: "webfont" !important;
+  cursor: url(https://file.jiangly.com/images/34113113.png),default;
+}
+
+::selection {
+  color: #fff;
+  background: @colorSuccess;
+  text-shadow: none;
+}
+
+input.common-input {
+  width: 100%;
+  outline: none;
+  margin: 5px 0;
+  padding: 0 10px;
+  line-height: 40px;
+  height: 40px;
+  font-size: 14px;
+  background-color: @colorBgBody;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+input.common-input:hover {
+  background-color: lighten(@colorBgBody, 2%);
+}
+
+input.common-input:focus {
+  border-color: @colorInfo;
+}
+
+textarea.common-textarea {
+  width: 100%;
+  outline: none;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 14px;
+  background-color: @colorBgBody;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  min-height: 40px;
+  min-height: 100px;
+}
+
+textarea.common-textarea:hover {
+  background-color: lighten(@colorBgBody, 2%);
+}
+
+textarea.common-textarea:focus {
+  border-color: @colorInfo;
+}
+
+/* ==== 无限旋转 ===== */
+.z-load-loop {
+  -webkit-animation: ani-load-loop 1s linear infinite;
+  animation: ani-load-loop 1s linear infinite;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+@keyframes ani-load-loop {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}
+
+.s-1-line{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
