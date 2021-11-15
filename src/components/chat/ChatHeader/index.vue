@@ -20,7 +20,9 @@
     <div class="header-right flex_center">
       <div class="header-right-item flex_center" @click.stop="openBox(1)">
         <icon name="chat-online" scale="1.8" class="icon" />
-        <span class="visible-xl visible-md visible-sm">在线[15]</span>
+        <span class="visible-xl visible-md visible-sm">
+          在线[{{ onLineNum }}]
+        </span>
       </div>
       <div class="header-right-item flex_center" @click.stop="openBox(2)">
         <icon name="chat-room" scale="1.8" class="icon" />
@@ -93,6 +95,9 @@ export default {
   computed: {
     copyText() {
       return "分享内容";
+    },
+    onLineNum() {
+      return this.$store.state.onlineUserList.length;
     },
   },
 };

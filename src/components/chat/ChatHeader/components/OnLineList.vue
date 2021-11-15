@@ -34,8 +34,7 @@ export default {
       };
     },
     onlineUserList() {
-      const a = this.$store.state.onlineUserList;
-      return [...a, ...a, ...a, ...a, ...a, ...a, ...a, ...a, ...a];
+      return this.$store.state.onlineUserList;
     },
   },
 };
