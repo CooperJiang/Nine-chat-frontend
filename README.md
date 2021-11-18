@@ -45,26 +45,4 @@
 
 
 
-### 基础目录结构
-
-├── nest-cli.json                  * cli配置
-├── src
-│   ├── app.module.ts       
-│   ├── common				* 公共方法、包含基础orm模型
-│   ├── config           		  * 配置文件
-│   ├── constant				 * 常量定义 
-│   ├── filters					  * 全局捕获错误
-│   ├── guard					  * 权限认证
-│   ├── interceptor             * 统一数据返回格式 
-│   ├── main.ts					* 入口文件
-│   ├── modules
-│   │   ├── chat					* 聊天室模块
-│   │   ├── music				 * 音乐模块
-│   │   └── user				   * 用户模块
-│   ├── swagger                	* swaager文档
-│   └── utils						  * 工具类方法
-└── tsconfig.json
-
-
-
 > 佛系更新 有需要请 `issues`提 看到有需要就更新、没有就GG

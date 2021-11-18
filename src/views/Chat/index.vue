@@ -126,8 +126,9 @@ export default {
       const token = localStorage.chat_token;
       const userInfo = this.$store.state.userInfo;
       if (!token) {
-        this.toggleSignInPopup(true);
+        this.toggleSignInPopup(true); // 没有登录信息，强制用户登录
       } else if (!window.returnCitySN) {
+        // 没有插入获取位置信息脚本，等待插入script完毕
         setTimeout(() => this.initSocket(), 50);
       } else {
         if (!userInfo) {
