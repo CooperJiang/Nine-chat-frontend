@@ -1,27 +1,32 @@
 <template>
-  <div class="progress">
+  <div class="progress" v-if="music_info">
     <div class="bar" :style="{ width: `${width}%` }"></div>
     <div class="current-music">
       <icon name="progress-music" class="icon" scale="1.8" />
       {{ music_info.music_album }} -
       {{ music_info.music_artist }}
-      <icon name="progress-collect" class="icon" scale="2.2" />
-      <icon name="progress-switch" class="icon" scale="2.2" />
+      <icon name="progress-collect" class="icon" scale="2.2" @click.native="collectMusic" />
+      <icon
+        name="progress-switch"
+        @click.native="$socket.client.emit('cutMusic')"
+        class="icon"
+        scale="2.2"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { collectMusic } from "@/api/music";
+
 export default {
-  components: {},
-  data() {
-    return {};
+  methods: {
+    async collectMusic(){
+      await collectMusic(this.music_info)
+      this.$message.success("歌曲收藏成功！")
+    }
   },
-  methods: {},
-  created() {},
-  mounted() {},
-  watch: {},
   computed: {
     ...mapState(["current_music_time", "music_info"]),
     width() {

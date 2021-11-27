@@ -17,7 +17,12 @@
         <span class="visible-xl visible-md visible-sm">分享</span>
       </div>
     </div>
+   
     <div class="header-right flex_center">
+       <div class="header-right-item flex_center" @click="toGit">
+        <icon name="github" scale="1.8"  />
+        <span class="visible-xl visible-md visible-sm">开源地址</span>
+      </div>
       <div class="header-right-item flex_center" @click.stop="openBox(1)">
         <icon name="chat-online" scale="1.8" class="icon" />
         <span class="visible-xl visible-md visible-sm">
@@ -88,6 +93,9 @@ export default {
     toBlog() {
       window.open("https://jiangly.com");
     },
+    toGit() {
+      window.open("https://github.com/longyanjiang");
+    }
   },
   created() {},
   mounted() {},

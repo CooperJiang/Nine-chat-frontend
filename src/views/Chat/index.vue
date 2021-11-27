@@ -1,8 +1,12 @@
 <template>
   <div class="chat">
     <div class="chat-container" v-if="isPassJoin">
-      <div class="chat-container-header"><chat-header /></div>
-      <div class="chat-container-content"><message-panel /></div>
+      <div class="chat-container-header">
+        <chat-header />
+      </div>
+      <div class="chat-container-content">
+        <message-panel />
+      </div>
       <div class="chat-container-progress">
         <chat-progress />
       </div>
@@ -36,6 +40,7 @@
 </template>
 
 <script>
+import Vue from "vue"
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessageFrame from "@/components/chat/ChatMessageFrame";
 import ChatLrc from "@/components/chat/ChatLrc";
@@ -73,33 +78,50 @@ export default {
     connect() {
       // this.$message.success("成功加入聊天室了哟");
     },
-    /* 携带的token没有通过校验 */
+    /* 携带的token没有通过校验、禁止用户做任何操作 */
     authFail(data) {
       this.loginAgain(data);
     },
+    /* 初始化房间信息、获取音乐详情 */
     async initRoom(data) {
       this.updateMusicInfo(data);
       this.$message.success(data.msg);
     },
+    /* 用户上线了、更新在线列表、添加新用户上线消息提示、获取房间信息公告 */
     async online(data) {
       await this.getHistoryMessage();
-      this.setOnlineUserList(data.data);
-      this.setMessageDataList({
-        message_type: "info",
-        message_content: data.msg,
-      });
+      const { msg, onlineUser } = data
+      this.setOnlineUserList(onlineUser);
+      this.setMessageDataList({ message_type: "info", message_content: msg });
       this.initNotice();
     },
+    /* 来了一条新消息 */
     message(data) {
       this.setMessageDataList(data.data);
     },
+    /* 歌曲切换、到新歌曲了 */
     switchMusic(data) {
-      this.updateMusicInfo(data.data);
-      this.setMessageDataList({
-        message_type: "info",
-        message_content: data.msg,
-      });
+      const { msg, musicInfo } = data
+      this.updateMusicInfo(musicInfo);
+      this.setMessageDataList({ message_type: "info", message_content: msg });
     },
+    /* 服务端来了新的消息提示 */
+    notice(data) {
+      this.setMessageDataList(data);
+      console.log(data);
+    },
+    /* 来自服务端的message消息提示 */
+    tips(data) {
+      const { code, msg } = data
+      code === 1 && this.$message.success(msg)
+      code === -1 && this.$message.error(msg)
+    },
+    /* 有新的点的歌曲信息、更新队列歌单并消息提示 */
+    chooseMusic(data){
+      const { queue_music_list, msg } = data;
+      this.setMessageDataList({ message_type: "info", message_content: msg });
+      this.setQueueMusicList(queue_music_list);
+    }
   },
   methods: {
     ...mapActions(["toggleSignInPopup", "initGetInfo"]),
@@ -121,7 +143,7 @@ export default {
         document.head.appendChild(script);
       }
     },
-    /* 初始化ws需要参数携带token前去校验 */
+    /* 初始化ws需要参数携带token前去校验 连接后挂载在全局 */
     async initSocket() {
       const token = localStorage.chat_token;
       const userInfo = this.$store.state.userInfo;
@@ -139,6 +161,7 @@ export default {
         const { cname } = window.returnCitySN;
         this.$socket.client.io.opts.query = { token, address: cname };
         this.$socket.client.open();
+        Vue.prototype.$socket = this.$socket 
       }
     },
     /* 权限校验失败，重新登录 */
@@ -159,10 +182,12 @@ export default {
       this.setCurrentMusicInfo({ music_info, music_lrc, music_src });
       music_start_time && this.setCurrentMusicStartTime(music_start_time);
     },
+    /* TODO 上拉加载更多 */
     async getHistoryMessage() {
       const res = await history();
       this.setMessageDataList(res.data);
     },
+    /* TODO 需要作为可配置项房间信息 */
     initNotice() {
       setTimeout(() => {
         this.$socket.client.connected &&
@@ -170,23 +195,22 @@ export default {
             message_type: "notice",
             message_content: [
               "欢迎来到小九的听歌房、欢迎点歌、欢迎各位朋友的到来、一起安安静静听歌吧。",
-              "1.更新开放个人信息修改、点击我的查看详情。",
-              "2.点击我的、上传专属背景、拥有自己的炫酷背景吧。",
-              "3.新增表情包搜索、可以找到自己喜欢的表情包啦。",
-              "4.增加未读消息提示、可以更方便查看历史消息了。",
-              "5.想要隐藏自己的背景墙、点击 ~ 键试试吧！",
+              "项目持续更新中、有好的想法可以issues、看到我会更新",
+              "目前不是完整版、完整版本内嵌在我的博客中、这里会陆续更新完毕",
             ],
           });
       }, 1000);
     },
+    /* 关闭弹窗 */
     closePopup() {
       this.showPopup = false;
     },
+    /* 确认加入房间 */
     passJoin() {
       this.isPassJoin = true;
       this.showPopup = false;
       this.initSocket();
-    },
+    }
   },
   created() {},
   mounted() {

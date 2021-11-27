@@ -8,7 +8,7 @@
       :height="400"
       title="表情包"
     >
-      <toolbar-emotion @emotion="emotion" />
+      <toolbar-emotion @emotion="(val) => $emit('emotion', val)" />
     </chat-popup>
     <chat-popup
       :options="opt2"
@@ -17,7 +17,9 @@
       :width="500"
       :height="400"
       title="点歌台"
-    />
+    >
+      <toolbar-choose-music @chooseMusic="(val) => $emit('chooseMusic', val)" />
+    </chat-popup>
     <chat-popup
       :options="opt3"
       :bottom="55"
@@ -25,7 +27,9 @@
       :width="500"
       :height="400"
       title="等待播放中的歌曲"
-    />
+    >
+      <toolbar-queue-music />
+    </chat-popup>
     <chat-popup
       :options="opt4"
       :bottom="55"
@@ -33,22 +37,24 @@
       :width="500"
       :height="400"
       title="我收藏的歌单"
-    />
+    >
+      <toolbar-collect />
+    </chat-popup>
     <div class="toolbar-left">
       <div class="toolbar-left-item flex_center" @click.stop="openBox(1)">
-        <icon name="toolbar-pic" class="icon" scale="1.6" />
+        <icon name="toolbar-pic" class="m_r5" scale="1.6" />
         表情
       </div>
       <div class="toolbar-left-item flex_center" @click.stop="openBox(2)">
-        <icon name="toolbar-music" class="icon" scale="1.6" />
+        <icon name="toolbar-music" class="m_r5" scale="1.6" />
         点歌
       </div>
       <div class="toolbar-left-item flex_center" @click.stop="openBox(3)">
-        <icon name="toolbar-hook" class="icon" scale="1.6" />
+        <icon name="toolbar-hook" class="m_r5" scale="1.6" />
         已点
       </div>
       <div class="toolbar-left-item flex_center" @click.stop="openBox(4)">
-        <icon name="toolbar-love" class="icon" scale="1.6" />
+        <icon name="toolbar-love" class="m_r5" scale="1.6" />
         收藏
       </div>
     </div>
@@ -59,8 +65,11 @@
 <script>
 import ChatPopup from "@/components/ChatPopup";
 import ToolbarEmotion from "./components/ToolbarEmotion.vue";
+import ToolbarChooseMusic from "./components/ToolbarChooseMusic.vue";
+import ToolbarQueueMusic from "./components/ToolbarQueueMusic.vue";
+import ToolbarCollect from "./components/ToolbarCollect.vue";
 export default {
-  components: { ChatPopup, ToolbarEmotion },
+  components: { ChatPopup, ToolbarEmotion, ToolbarChooseMusic, ToolbarQueueMusic, ToolbarCollect },
   data() {
     return {
       opt1: {
@@ -88,15 +97,8 @@ export default {
         (t) => t.search("opt") !== -1
       );
       keys.forEach((t) => (this[t].show = false));
-    },
-    emotion(val) {
-      this.$emit("emotion", val);
-    },
-  },
-  created() {},
-  mounted() {},
-  watch: {},
-  computed: {},
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

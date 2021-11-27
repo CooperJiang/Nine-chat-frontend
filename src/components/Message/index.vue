@@ -29,16 +29,6 @@
           <span @click="noAgainFun">{{ noRemind }}</span>
         </div>
       </div>
-      <!-- 可以简写如下 -->
-      <!-- <div class="notify"
-           :class="[type === 'success' ? 'success' : (type === 'error' ? 'error' : (type === 'warning' ? 'warning' : 'message')), noNotifyBtn ? 'notifyPadding' : '']">
-        <i :class="[type === 'success' ? 'el-icon-success' : (type === 'error' ? 'el-icon-error' : (type === 'warning' ? 'el-icon-warning' : 'el-icon-info'))]"></i>
-        <span class="content"> {{content}}</span>
-        <div v-if="noNotifyBtn"
-             class="noNotifyAgain">
-          <span @click="noAgainFun">{{noRemind}}</span>
-        </div>
-      </div> -->
     </div>
   </transition>
 </template>

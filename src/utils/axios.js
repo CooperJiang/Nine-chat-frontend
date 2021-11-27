@@ -22,7 +22,6 @@ service.interceptors.response.use(
   (response) => {
     const res = response.data;
     if (![200, 201].includes(response.status)) {
-      console.log(response, "返回code不是200,201");
       return Promise.reject(new Error(res.message || "Error"));
     }
     return res;
@@ -31,7 +30,6 @@ service.interceptors.response.use(
     if (error.message == "timeout of 5000ms exceeded") {
       $message.error("请求超时，请检查您的网络状态或重新请求！");
     }
-    console.log({ error });
     const { code, message } = error.response.data;
     if (code === 401) {
       $message.error(`身份信息校验失败、请重新登录`);
