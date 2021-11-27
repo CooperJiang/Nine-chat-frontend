@@ -40,9 +40,17 @@
 
 ### 技术栈
 
-* 前端采用 vue + socker-io 开发 暂未使用ui框架
-* 后端采用 nestjs + typeorm + mysql + pm2
+* 前端采用 vue + socker-io 未使用ui框架
+* 后端采用 nestjs + typeorm + mysql + redis + pm2 + docker + gitlab-runner
 
 
 
 > 佛系更新 有需要请 `issues`提 看到有需要就更新、没有就GG
+
+
+
+### 关于更新
+
+目前这里并不是完整的代码，详情功能看预览地址，有需要就留言，就更新，没需要就G了，基础模型功能都有，可以自己二次开发。
+
+有时间也会更新部分功能上去、尽量做到简洁、方便各位移植和部署。
