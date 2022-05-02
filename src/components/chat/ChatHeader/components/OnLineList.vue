@@ -5,7 +5,7 @@
       :key="index"
       class="online-item"
     >
-      <img class="online-item-avatar" :src="item.user_avatar" />
+      <img class="online-item-avatar" :src="item && item.user_avatar" />
       <div class="online-item-info">
         <div class="online-item-info-name">
           <span>{{ item.user_nick }}</span>

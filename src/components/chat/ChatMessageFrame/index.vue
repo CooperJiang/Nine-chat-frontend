@@ -26,7 +26,6 @@ export default {
       if (e.keyCode === 13 && this.message) {
         const data = { message_type: "text", message_content: this.message };
         this.$socket.client.emit("message", data);
-        // this.$refs.messageFrame.toEnd();
         this.$nextTick(() => {
           this.$scorllToBottom();
         });

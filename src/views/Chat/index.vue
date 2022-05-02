@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import Vue from "vue"
+import Vue from "vue";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessageFrame from "@/components/chat/ChatMessageFrame";
 import ChatLrc from "@/components/chat/ChatLrc";
@@ -90,7 +90,7 @@ export default {
     /* 用户上线了、更新在线列表、添加新用户上线消息提示、获取房间信息公告 */
     async online(data) {
       await this.getHistoryMessage();
-      const { msg, onlineUser } = data
+      const { msg, onlineUser } = data;
       this.setOnlineUserList(onlineUser);
       this.setMessageDataList({ message_type: "info", message_content: msg });
       this.initNotice();
@@ -101,7 +101,7 @@ export default {
     },
     /* 歌曲切换、到新歌曲了 */
     switchMusic(data) {
-      const { msg, musicInfo } = data
+      const { msg, musicInfo } = data;
       this.updateMusicInfo(musicInfo);
       this.setMessageDataList({ message_type: "info", message_content: msg });
     },
@@ -112,16 +112,16 @@ export default {
     },
     /* 来自服务端的message消息提示 */
     tips(data) {
-      const { code, msg } = data
-      code === 1 && this.$message.success(msg)
-      code === -1 && this.$message.error(msg)
+      const { code, msg } = data;
+      code === 1 && this.$message.success(msg);
+      code === -1 && this.$message.error(msg);
     },
     /* 有新的点的歌曲信息、更新队列歌单并消息提示 */
-    chooseMusic(data){
+    chooseMusic(data) {
       const { queue_music_list, msg } = data;
       this.setMessageDataList({ message_type: "info", message_content: msg });
       this.setQueueMusicList(queue_music_list);
-    }
+    },
   },
   methods: {
     ...mapActions(["toggleSignInPopup", "initGetInfo"]),
@@ -161,7 +161,7 @@ export default {
         const { cname } = window.returnCitySN;
         this.$socket.client.io.opts.query = { token, address: cname };
         this.$socket.client.open();
-        Vue.prototype.$socket = this.$socket 
+        Vue.prototype.$socket = this.$socket;
       }
     },
     /* 权限校验失败，重新登录 */
@@ -210,7 +210,7 @@ export default {
       this.isPassJoin = true;
       this.showPopup = false;
       this.initSocket();
-    }
+    },
   },
   created() {},
   mounted() {

@@ -12,7 +12,7 @@
       >
         <div class="info-box">
           <span :class="['name']">
-            {{ item.userInfo && item.userInfo.user_nick }}
+            {{ item.user_info && item.user_info.user_nick }}
           </span>
           <span
             v-if="item.message_type === 'text'"
@@ -27,8 +27,13 @@
             />
           </span>
         </div>
-
-        <img class="avatar" :src="item.userInfo.user_avatar" />
+        <!-- 用户可能删除账户的情况就没有item.user_info了 -->
+        <img
+          v-if="item.user_info"
+          class="avatar"
+          :src="item.user_info.user_avatar"
+        />
+        <img v-if="!item.user_info" class="avatar" :src="errAvatar" />
       </span>
 
       <!-- info -->
@@ -59,6 +64,8 @@ export default {
     return {
       isVisible: true, // 是否在可视区域
       unReadNum: 0, // 未读消息条数
+      errAvatar:
+        "https://img1.baidu.com/it/u=430660535,1172956011&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
     };
   },
   methods: {
@@ -91,6 +98,9 @@ export default {
       this.$nextTick(() => {
         this.$refs.end.scrollIntoView(true);
       });
+    },
+    previewImg() {
+      console.log("预览图片");
     },
   },
   created() {},

@@ -17,7 +17,8 @@
         <span class="visible-xl visible-md visible-sm">分享</span>
       </div>
     </div>
-   
+
+    <!-- pannel right -->
     <div class="header-right flex_center">
        <div class="header-right-item flex_center" @click="toGit">
         <icon name="github" scale="1.8"  />
@@ -55,8 +56,9 @@
 import Clipboard from "clipboard";
 import ChatPopup from "@/components/ChatPopup";
 import OnlineList from "./components/OnLineList.vue";
+import PopOver from "@/components/Popover"
 export default {
-  components: { ChatPopup, OnlineList },
+  components: { ChatPopup, OnlineList, PopOver },
   data() {
     return {
       opt1: {

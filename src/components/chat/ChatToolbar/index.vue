@@ -69,7 +69,13 @@ import ToolbarChooseMusic from "./components/ToolbarChooseMusic.vue";
 import ToolbarQueueMusic from "./components/ToolbarQueueMusic.vue";
 import ToolbarCollect from "./components/ToolbarCollect.vue";
 export default {
-  components: { ChatPopup, ToolbarEmotion, ToolbarChooseMusic, ToolbarQueueMusic, ToolbarCollect },
+  components: {
+    ChatPopup,
+    ToolbarEmotion,
+    ToolbarChooseMusic,
+    ToolbarQueueMusic,
+    ToolbarCollect,
+  },
   data() {
     return {
       opt1: {
@@ -97,8 +103,8 @@ export default {
         (t) => t.search("opt") !== -1
       );
       keys.forEach((t) => (this[t].show = false));
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

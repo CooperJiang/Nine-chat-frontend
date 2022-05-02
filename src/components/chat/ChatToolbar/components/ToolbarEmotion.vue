@@ -14,20 +14,11 @@
         搜索
       </div>
     </div>
-    <div class="emotion-content">
+    <div v-loading="loading" class="emotion-content">
       <emotion v-if="!emoticonList.length" :padding="0" @emotion="emotion" />
       <div v-else class="emotion-content-emoji">
         <div v-for="(url, index) in emoticonList" :key="index" class="resulu">
-          <img
-            loading="lazy"
-            :src="url"
-            class="resulu-pic"
-            @click="
-              () => {
-                $emit('sendEmoji', url);
-              }
-            "
-          />
+          <img :src="url" class="resulu-pic" @click="sendEmoji(url)" />
         </div>
       </div>
     </div>
@@ -36,7 +27,7 @@
 
 <script>
 import Emotion from "@/components/Emotion/Emotion.vue";
-
+import { queryEmo } from "@/api/emoticon";
 export default {
   components: { Emotion },
   data() {
@@ -54,8 +45,8 @@ export default {
       if (!this.keyword) return;
       this.loading = true;
       try {
-        const res = await this.$API.chat.emoticon({ keyword: this.keyword });
-        this.emoticonList = res;
+        const res = await queryEmo({ keyword: this.keyword });
+        this.emoticonList = res.data;
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -65,6 +56,10 @@ export default {
       if (!e.target.value) {
         this.emoticonList = [];
       }
+    },
+    sendEmoji(url) {
+      const data = { message_type: "img", message_content: url };
+      this.$socket.client.emit("message", data);
     },
   },
   created() {},
