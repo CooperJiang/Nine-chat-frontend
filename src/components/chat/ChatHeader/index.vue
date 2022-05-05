@@ -56,9 +56,8 @@
 import Clipboard from "clipboard";
 import ChatPopup from "@/components/ChatPopup";
 import OnlineList from "./components/OnLineList.vue";
-import PopOver from "@/components/Popover"
 export default {
-  components: { ChatPopup, OnlineList, PopOver },
+  components: { ChatPopup, OnlineList },
   data() {
     return {
       opt1: {
