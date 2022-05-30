@@ -1,52 +1,52 @@
 <template>
-  <transition name="slide-fade">
-    <div class="my-notify" v-if="notifyFlag">
-      <div class="notify success" v-if="type == 'success'">
-        <icon name="icon-success" scale="2"></icon>
-        <span class="content"> {{ content }}</span>
-        <div v-if="noNotifyBtn" class="noNotifyAgain">
-          <span @click="noAgainFun">{{ noRemind }}</span>
-        </div>
-      </div>
-      <div class="notify message" v-else-if="type == 'message'">
-        <icon name="icon-message" scale="2"></icon>
-        <span class="content">{{ content }}</span>
-        <div v-if="noNotifyBtn" class="noNotifyAgain">
-          <span @click="noAgainFun">{{ noRemind }}</span>
-        </div>
-      </div>
-      <div class="notify error" v-else-if="type == 'error'">
-        <icon name="icon-error" scale="2"></icon>
-        <span class="content">{{ content }}</span>
-        <div v-if="noNotifyBtn" class="noNotifyAgain">
-          <span @click="noAgainFun">{{ noRemind }}</span>
-        </div>
-      </div>
-      <div class="notify warning" v-else-if="type == 'warning'">
-        <icon name="icon-warning" scale="2"></icon>
-        <span class="content">{{ content }}</span>
-        <div v-if="noNotifyBtn" class="noNotifyAgain">
-          <span @click="noAgainFun">{{ noRemind }}</span>
-        </div>
-      </div>
-    </div>
-  </transition>
+	<transition name="slide-fade">
+		<div v-if="notifyFlag" class="my-notify">
+			<div v-if="type == 'success'" class="notify success">
+				<icon name="icon-success" scale="2"></icon>
+				<span class="content"> {{ content }}</span>
+				<div v-if="noNotifyBtn" class="noNotifyAgain">
+					<span @click="noAgainFun">{{ noRemind }}</span>
+				</div>
+			</div>
+			<div v-else-if="type == 'message'" class="notify message">
+				<icon name="icon-message" scale="2"></icon>
+				<span class="content">{{ content }}</span>
+				<div v-if="noNotifyBtn" class="noNotifyAgain">
+					<span @click="noAgainFun">{{ noRemind }}</span>
+				</div>
+			</div>
+			<div v-else-if="type == 'error'" class="notify error">
+				<icon name="icon-error" scale="2"></icon>
+				<span class="content">{{ content }}</span>
+				<div v-if="noNotifyBtn" class="noNotifyAgain">
+					<span @click="noAgainFun">{{ noRemind }}</span>
+				</div>
+			</div>
+			<div v-else-if="type == 'warning'" class="notify warning">
+				<icon name="icon-warning" scale="2"></icon>
+				<span class="content">{{ content }}</span>
+				<div v-if="noNotifyBtn" class="noNotifyAgain">
+					<span @click="noAgainFun">{{ noRemind }}</span>
+				</div>
+			</div>
+		</div>
+	</transition>
 </template>
 
 <script>
 export default {
-  name: "notifyMessage",
-  props: {},
+  name: "NotifyMessage",
   components: {},
+  props: {},
   data() {
     return {
       noRemind: "Dont remind again",
     };
   },
+  computed: {},
+  watch: {},
   created() {},
   mounted() {},
-  watch: {},
-  computed: {},
   methods: {
     noAgainFun() {
       sessionStorage.setItem("dontRemindAgain", "1");

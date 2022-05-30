@@ -1,25 +1,25 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <div v-if="show" class="modal" @click.stop="maskClose">
-      <div :style="{ width, marginTop: top }" class="modal-container">
-        <div class="header">
-          <slot v-if="!title" name="header"></slot>
-          <div class="header-default">
-            <span>{{ title }}</span>
-            <span @click="close">
-              <icon v-if="showCloseBtn" name="close" scale="2.4" />
-            </span>
-          </div>
-        </div>
-        <div class="content">
-          <slot> </slot>
-        </div>
-        <div class="footer">
-          <slot name="footer"></slot>
-        </div>
-      </div>
-    </div>
-  </transition>
+	<transition name="fade" mode="out-in">
+		<div v-if="show" class="modal" @click.stop="maskClose">
+			<div :style="{ width, marginTop: top }" class="modal-container">
+				<div class="header">
+					<slot v-if="!title" name="header"></slot>
+					<div class="header-default">
+						<span>{{ title }}</span>
+						<span @click="close">
+							<icon v-if="showCloseBtn" name="close" scale="2.4" />
+						</span>
+					</div>
+				</div>
+				<div class="content">
+					<slot> </slot>
+				</div>
+				<div class="footer">
+					<slot name="footer"></slot>
+				</div>
+			</div>
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -54,10 +54,15 @@ export default {
       default: () => true,
     },
   },
+  watch: {
+    show(n) {
+      this.visible = n;
+    },
+  },
+  mounted() {},
   methods: {
     joinRoom() {
       this.$emit("joinRoom");
-      this.show = false;
     },
     maskClose() {
       if (this.lock) return;
@@ -65,12 +70,6 @@ export default {
     },
     close() {
       this.beforeClose() && this.$emit("close");
-    },
-  },
-  mounted() {},
-  watch: {
-    show(n) {
-      this.visible = n;
     },
   },
 };

@@ -1,5 +1,3 @@
-import request from "@/utils/request";
+import request from '@/utils/request';
 
-export const queryEmo = (data) => {
-  return request("get", "/chat/emoticon", data);
-};
+export const queryEmo = data => request('get', '/chat/emoticon', data);

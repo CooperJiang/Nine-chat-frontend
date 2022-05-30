@@ -5,18 +5,18 @@
   "scripts": {
     "dev": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "eslint --ext .js,.vue src",
+    "lint:fix": "eslint --fix --ext .js,.vue src"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "element-ui": "^2.15.6",
+    "element-ui": "^2.15.7",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -24,16 +24,21 @@
     "axios": "^0.24.0",
     "babel-eslint": "^10.1.0",
     "clipboard": "^2.0.8",
-    "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "nprogress": "^0.2.0",
     "prettier": "^2.2.1",
     "socket.io-client": "^4.3.2",
+    "style-resources-loader": "^1.5.0",
     "svg-sprite-loader": "^6.0.11",
+    "vue-cli-plugin-style-resources-loader": "^0.1.5",
     "vue-socket.io-extended": "^4.2.0",
-    "vue-svg-icon": "^1.2.9",
     "vue-template-compiler": "^2.6.11",
     "xml-loader": "^1.2.1"
   }

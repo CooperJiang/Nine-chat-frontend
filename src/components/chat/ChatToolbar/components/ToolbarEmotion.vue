@@ -1,33 +1,27 @@
 <template>
-  <div class="emotion">
-    <div class="emotion-header">
-      <input
-        ref="input"
-        v-model="keyword"
-        type="text"
-        placeholder="找到你喜欢的表情包吧[请输入中文]"
-        @keydown.enter="search"
-        @input="input"
-      />
-      <div class="emotion-header-btn" @click="search">
-        <icon name="toolbar-search" class="icon" scale="1.6" />
-        搜索
-      </div>
-    </div>
-    <div v-loading="loading" class="emotion-content">
-      <emotion v-if="!emoticonList.length" :padding="0" @emotion="emotion" />
-      <div v-else class="emotion-content-emoji">
-        <div v-for="(url, index) in emoticonList" :key="index" class="resulu">
-          <img :src="url" class="resulu-pic" @click="sendEmoji(url)" />
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="emotion">
+		<div class="emotion-header">
+			<input ref="input" v-model="keyword" type="text" placeholder="找到你喜欢的表情包吧[请输入中文]" @keydown.enter="search" @input="input" />
+			<div class="emotion-header-btn" @click="search">
+				<icon name="toolbar-search" class="icon" scale="1.6" />
+				搜索
+			</div>
+		</div>
+		<div v-loading="loading" class="emotion-content">
+			<emotion v-if="!emoticonList.length" :padding="0" @emotion="emotion" />
+			<div v-else class="emotion-content-emoji">
+				<div v-for="(url, index) in emoticonList" :key="index" class="resulu">
+					<img :src="url" class="resulu-pic" @click="sendEmoji(url)" />
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import Emotion from "@/components/Emotion/Emotion.vue";
 import { queryEmo } from "@/api/emoticon";
+
 export default {
   components: { Emotion },
   data() {
@@ -35,8 +29,13 @@ export default {
       loading: false,
       keyword: null,
       emoticonList: [],
+      allowImgExt: ["png", "jpg", "jpeg", "gif"], // TODO 关于格式提取到全局
     };
   },
+  computed: {},
+  watch: {},
+  created() {},
+  mounted() {},
   methods: {
     emotion(val) {
       this.$emit("emotion", val);
@@ -58,28 +57,38 @@ export default {
       }
     },
     sendEmoji(url) {
-      const data = { message_type: "img", message_content: url };
+      /* TODO 表情包详细信息有空可以爬虫去覆盖全面一点 */
+      const ext = this.getFileType(url);
+      if (!this.allowImgExt.includes(ext))
+        return this.$message.error("当前格式表情包被拒绝，请联系管理员");
+      const content = { name: "", size: "", ext, url };
+      /* emo是我们自己规定的特殊类型 */
+      const data = {
+        message_type: "emo",
+        message_content: JSON.stringify(content),
+      };
       this.$socket.client.emit("message", data);
     },
+
+    /* TODO 获取文件类型 放入全局 */
+    getFileType(name) {
+      return name.substr(name.lastIndexOf(".") - name.length + 1).toLowerCase();
+    },
   },
-  created() {},
-  mounted() {},
-  watch: {},
-  computed: {},
 };
 </script>
 <style lang="less" scoped>
 .emotion {
   padding: 0 10px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid @message-border-color;
   &-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #e5e5e5;
+    border: 1px solid @message-border-color;
     transition: all 0.3s;
     font-size: 13px;
-    color: #999;
+    color: @message-main-text-color;
     border-radius: 5px;
     margin: 7px 0;
     input {
@@ -88,7 +97,7 @@ export default {
       font-size: 13px;
       outline: none;
       border: none;
-      color: #999;
+      color: @message-main-text-color;
       background: transparent;
       &::placeholder {
         color: #ccc;
@@ -97,7 +106,7 @@ export default {
     }
     &-btn {
       padding: 9px 18px;
-      border-left: 1px solid #e5e5e5;
+      border-left: 1px solid @message-border-color;
       user-select: none;
       display: flex;
       align-items: center;
@@ -129,7 +138,7 @@ export default {
         height: 82px;
         margin: 6px;
         border-radius: 8px;
-        border: 1px solid #eee;
+        border: 1px solid @message-border-color;
         padding: 0;
         cursor: pointer;
         user-select: none;

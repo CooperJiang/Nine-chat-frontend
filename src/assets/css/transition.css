@@ -16,6 +16,28 @@
   transition: all 0.3s ease;
 }
 
+/* 弹框面板 */
+.popup-box-enter,
+.popup-box-leave-to {
+  opacity: 0;
+  transform: scale(.8);
+}
+.popup-box-enter-active,
+.popup-box-leave-active {
+  transition: all 0.3s ease;
+}
+
+
+/* 聊天面板 */
+.message-panel-enter,
+.message-panel-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+.message-panel-enter-active,
+.message-panel-leave-active {
+  transition: all 0.3s ease;
+}
 
 .transform-enter,
 .transform-leave-to {
@@ -25,4 +47,47 @@
 .transform-enter-active,
 .transform-leave-active {
   transition: all 0.4s ease;
+}
+
+.z-load-loop {
+  -webkit-animation: ani-load-loop 1s linear infinite;
+  animation: ani-load-loop 1s linear infinite;
+}
+
+@keyframes ani-load-loop {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}
+
+.msg-tips-enter,
+.msg-tips-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.msg-tips-enter-active,
+.msg-tips-leave-active {
+  transition: all 0.5s ease;
+}
+
+.msg-tips-enter,
+.msg-tips-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+.msg-tips-enter-active,
+.msg-tips-leave-active {
+  transition: all 0.5s ease;
 }

@@ -76,32 +76,8 @@ textarea.common-textarea:focus {
   border-color: @colorInfo;
 }
 
-/* ==== 无限旋转 ===== */
-.z-load-loop {
-  -webkit-animation: ani-load-loop 1s linear infinite;
-  animation: ani-load-loop 1s linear infinite;
-}
-
 ::-webkit-scrollbar {
   display: none;
-}
-
-
-@keyframes ani-load-loop {
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-
-  50% {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-
-  to {
-    -webkit-transform: rotate(1turn);
-    transform: rotate(1turn);
-  }
 }
 
 .s-1-line{
@@ -188,4 +164,33 @@ textarea.common-textarea:focus {
 
 .m_b30{
   margin-bottom: 30px;
+}
+
+/* element 全局样式修改 */
+
+/* 抽屉颜色 */
+.el-drawer, .el-dialog{
+  background-color:  @message-drawer-bg-color !important;
+}
+.el-drawer__open .el-drawer.rtl{
+  background-color: rgba(@message-drawer-bg-color, .8);
+}
+
+.el-form-item__label, .el-radio, .el-drawer__header, .el-dialog__title{
+  color: @message-main-text-color !important;
+}
+
+/* 弹窗 */
+.el-dialog__body{
+  padding: 10px 20px !important;
+}
+
+/* 去掉dropdown的三角 */
+.popper__arrow{
+  top: 0 !important;
+}
+
+/* 改变dropdown位置 */
+.el-popper[x-placement^=bottom]{
+  margin-top: -15px !important;
 }

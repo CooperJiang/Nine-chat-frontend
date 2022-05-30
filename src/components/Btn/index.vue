@@ -1,25 +1,10 @@
 <template>
-  <components
-    :is="tagName"
-    :class="classes"
-    :disabled="disabled"
-    v-bind="tagProps"
-    @click="handleClickLink"
-  >
-    <icon
-      v-if="loading"
-      class="z-load-loop"
-      scale="1.8"
-      name="btn-loading"
-    ></icon>
-    <icon
-      v-if="icon && !loading && !iconOnRight"
-      :size="14"
-      :name="icon"
-    ></icon>
-    <span v-if="showSlot" ref="slot"><slot></slot></span>
-    <icon v-if="icon && !loading && iconOnRight" :size="14" :name="icon"></icon>
-  </components>
+	<components :is="tagName" :class="classes" :disabled="disabled" v-bind="tagProps" @click="handleClickLink">
+		<icon v-if="loading" class="z-load-loop" scale="1.8" name="btn-loading"></icon>
+		<icon v-if="icon && !loading && !iconOnRight" :size="14" :name="icon"></icon>
+		<span v-if="showSlot" ref="slot"><slot></slot></span>
+		<icon v-if="icon && !loading && iconOnRight" :size="14" :name="icon"></icon>
+	</components>
 </template>
 
 <script>
@@ -124,10 +109,10 @@ export default {
       if (isHrefPattern) {
         const { linkUrl, target } = this;
         return { href: linkUrl, target };
-      } else {
+      }
         const { htmlType } = this;
         return { type: htmlType };
-      }
+
     },
   },
   mounted() {

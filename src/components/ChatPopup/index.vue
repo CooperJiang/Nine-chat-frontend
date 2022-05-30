@@ -1,8 +1,8 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <div
-      v-if="options && options.show"
-      :style="{
+	<transition name="popup-box" mode="out-in">
+		<div
+			v-if="options && options.show"
+			:style="{
         width: `${width}px`,
         height: `${height}px`,
         top: `${top}px`,
@@ -10,13 +10,16 @@
         left: `${left}px`,
         bottom: `${bottom}px`,
       }"
-      class="frame"
-      @click.stop
-    >
-      <div class="frame-title title">{{ title }}</div>
-      <div class="frame-content"><slot></slot></div>
-    </div>
-  </transition>
+			class="frame"
+			@click.stop
+		>
+			<div class="frame-title title">
+				{{ title }}
+				<slot name="header"></slot>
+			</div>
+			<div class="frame-content"><slot></slot></div>
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -71,6 +74,7 @@ export default {
     bodyClose() {
       const self = this;
       if (self.options.show === true) {
+        // eslint-disable-next-line vue/no-mutating-props
         self.options.show = false;
       }
     },
@@ -93,7 +97,7 @@ export default {
   width: 350px;
   height: 500px;
   box-shadow: 0 0 10px rgba(89, 36, 36, 0.2);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: @message-popup-bg-color;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border-radius: 10px;
@@ -101,11 +105,11 @@ export default {
   flex-direction: column;
   z-index: 99;
   .title {
-    color: #000;
+    color: @message-main-text-color;
     font-size: 16px;
     font-weight: 600;
-    /* stylelint-disable */
-    font-family: "webfont";
+    display: flex;
+    justify-content: space-between;
   }
   &-title {
     font-size: 16px;
@@ -120,17 +124,5 @@ export default {
     overflow: hidden;
     overflow-y: auto;
   }
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  transform: translateX(150px);
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.4s ease;
 }
 </style>

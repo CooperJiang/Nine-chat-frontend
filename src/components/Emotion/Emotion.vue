@@ -1,22 +1,16 @@
 <template>
-  <div :style="{ height: height, backgroundColor: bgColor }" class="emoji-box">
-    <ul :style="{ width: width, padding: `${padding}px` }" class="emoji-wrap">
-      <li
-        v-for="item in list"
-        :key="item.id"
-        :data-code="item.id"
-        :title="item.text"
-        class="emoji"
-        @click="handleClick(item)"
-      >
-        <img :alt="item.text" :src="getEmotionImgUrl(item.id)" />
-      </li>
-    </ul>
-  </div>
+	<div :style="{ height: height, backgroundColor: bgColor }" class="emoji-box">
+		<ul :style="{ width: width, padding: `${padding}px` }" class="emoji-wrap">
+			<li v-for="item in list" :key="item.id" :data-code="item.id" :title="item.text" class="emoji" @click="handleClick(item)">
+				<img :alt="item.text" :src="getEmotionImgUrl(item.id)" />
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
 import { emotionData, getImgUrl } from "@/components/Emotion/emotion";
+
 export default {
   name: "Emotion",
   props: {
@@ -62,25 +56,27 @@ export default {
     overflow: hidden;
     .emoji {
       float: left;
-      width: 40px;
-      height: 40px;
+      margin: 5px;
+      padding: 3px;
+      border-radius: 5px;
+      border: 1px solid @message-hover-bg-color;
+      background: @message-hover-bg-color;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0;
       transition: all 0.2s ease-in-out;
       cursor: pointer;
       -webkit-user-drag: none;
       img {
         transition: all 0.2s ease-in-out;
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 30px;
         -webkit-user-drag: none;
         pointer-events: none;
         user-select: none;
       }
       &:hover {
-        background: #eee;
+        background: @message-hover-bg-color;
         img {
           transform: scale(1.2);
         }

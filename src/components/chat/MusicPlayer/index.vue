@@ -1,25 +1,30 @@
 <template>
-  <div class="music">
-    <audio
-      v-if="music_src"
-      ref="music"
-      :src="music_src"
-      autoplay
-      @timeupdate="updateTime"
-    ></audio>
-  </div>
+	<div class="music">
+		<audio v-if="music_src" ref="music" :src="music_src" autoplay @timeupdate="updateTime"></audio>
+	</div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
+
 export default {
+  data() {
+    return {
+      time: null,
+      isPlay: false,
+    };
+  },
   watch: {
     music_start_time(n) {
+      this.time = n;
       this.specifiedTime(n);
     },
   },
   computed: {
     ...mapState(["music_src", "music_start_time"]),
+  },
+  mounted() {
+    document.addEventListener("touchstart", this.handlerTouchPlay, false);
   },
   methods: {
     ...mapMutations(["setCurrenMusicTime"]),
@@ -42,13 +47,16 @@ export default {
     /* 拿到当前时间，取出当前歌词 */
     updateTime(e) {
       this.setCurrenMusicTime(e.target.currentTime);
-      // const res = this.musicLrc.filter((t) => t.time < e.target.currentTime);
-      // let currentLrc = null;
-      // res.length && (currentLrc = res[res.length - 1].lineLyric);
-      // this.$emit("updateLrc", {
-      //   currentLrc,
-      //   currentTime: parseInt(e.target.currentTime),
-      // });
+    },
+
+    /* 部分设备不支持自动播放，让其他点击屏幕到加载了歌曲播放为止 */
+    handlerTouchPlay() {
+      if (!this.isPlay && this.time && this.$refs.music) {
+        this.$refs.music.currentTime = this.time;
+        this.$refs.music.play();
+        this.isPlay = true;
+        document.removeEventListener("touchstart", this.handlerTouchPlay);
+      }
     },
   },
 };
