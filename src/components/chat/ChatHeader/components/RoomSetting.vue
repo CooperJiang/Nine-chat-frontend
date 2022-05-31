@@ -78,7 +78,7 @@ export default {
         ],
         room_notice: [
           { required: true, message: "请输入房间公告", trigger: "blur" },
-          { max: 255, message: "最长为255字符", trigger: "blur" },
+          { max: 512, message: "最长为512字符", trigger: "blur" },
         ],
         room_need_password: [
           { required: true, message: "请设置房间权限", trigger: "change" },

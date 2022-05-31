@@ -54,7 +54,9 @@
 <script>
 import axios from "axios";
 import ChatToolbar from "@/components/chat/ChatToolbar";
+import config from '@/config/index.js'
 
+const {file_upload_url} = config
 export default {
   components: { ChatToolbar },
   data() {
@@ -99,7 +101,7 @@ export default {
           formData.append("file", file);
           const config = { headers: { "Content-Type": "multipart/form-data" } };
           const res = await axios.post(
-            config.file_upload_url,
+            file_upload_url,
             formData,
             config
           );
@@ -121,7 +123,7 @@ export default {
           const config = { headers: { "Content-Type": "multipart/form-data" } };
           try {
             const res = await axios.post(
-              config.file_upload_url,
+              file_upload_url,
               formData,
               config
             );

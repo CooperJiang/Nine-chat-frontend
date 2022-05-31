@@ -42,7 +42,7 @@ export default {
       rules: {
         user_name: [
           { required: true, message: "请输入您的账号", trigger: "blur" },
-          { min: 1, max: 8, message: "长度在 1 到 8 个字符", trigger: "blur" },
+          { min: 1, max: 8, message: "长度在 1 到 16 个字符", trigger: "blur" },
         ],
         user_password: [
           { required: true, message: "请输入您的账户密码", trigger: "blur" },

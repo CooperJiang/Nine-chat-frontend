@@ -71,6 +71,7 @@ export default {
   sockets: {
     /* 连接成功后初始化房间信息 */
     connect() {
+      this.initLocalStorageConfig();
       this.getRoomInfo();
     },
 

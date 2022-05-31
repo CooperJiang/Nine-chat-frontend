@@ -23,7 +23,7 @@
 			<el-form-item label="是否提示播放信息">
 				<el-switch v-model="showTipsPlayMusic"></el-switch>
 			</el-form-item>
-			<el-form-item label="是否提示进房公告">
+			<el-form-item label="是否提示房间公告">
 				<el-switch v-model="showTipsNotice"></el-switch>
 			</el-form-item>
 			<el-form-item label="个性化工具栏">
