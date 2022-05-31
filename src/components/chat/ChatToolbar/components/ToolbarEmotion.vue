@@ -1,7 +1,7 @@
 <template>
 	<div class="emotion">
 		<div class="emotion-header">
-			<input ref="input" v-model="keyword" type="text" placeholder="找到你喜欢的表情包吧[请输入中文]" @keydown.enter="search" @input="input" />
+			<input ref="input" v-model="keyword" type="text" placeholder="搜索您喜欢的表情包吧" @keydown.enter="search" @input="input" />
 			<div class="emotion-header-btn" @click="search">
 				<icon name="toolbar-search" class="icon" scale="1.6" />
 				搜索

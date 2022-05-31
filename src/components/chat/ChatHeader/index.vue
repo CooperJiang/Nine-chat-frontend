@@ -102,18 +102,10 @@ export default {
   components: { ChatPopup, OnlineList, RoomList, PersionInfo, RoomSetting },
   data() {
     return {
-      opt1: {
-        show: false,
-      },
-      opt2: {
-        show: false,
-      },
-      opt3: {
-        show: false,
-      },
-      opt4: {
-        show: false,
-      },
+      opt1: { show: false },
+      opt2: { show: false },
+      opt3: { show: false },
+      opt4: { show: false },
       createRoomVisible: false,
     };
   },
@@ -160,7 +152,7 @@ export default {
       res.forEach((t) => (self[t].show = false));
     },
     toGit() {
-      window.open("https://github.com/longyanjiang");
+      window.open("https://github.com/longyanjiang/Nine-chat-frontend");
     },
     createOrJoinRoom() {
       if (!this.$socket.client.connected) return this.setSignInPopup(true);

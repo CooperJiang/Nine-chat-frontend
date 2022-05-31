@@ -21,15 +21,9 @@
 				<pre-img :data="pre_img" />
 			</div>
 		</transition>
-		<div>
-			<music-player ref="minePlayer" />
-			<!-- <el-dialog title="欢迎加入聊天室" top="40vh" :close-on-click-modal="false" :closed="hanlderCloseDialog" :close-on-press-escape="false" :visible.sync="showPopup" width="300px">
-				<span>请注意、加入聊天室将自动播放音乐</span>
-				<span slot="footer" class="dialog-footer">
-					<el-button size="mini" @click="passJoin">加入房间</el-button>
-				</span>
-			</el-dialog> -->
-		</div>
+
+		<bullet-chat v-show="!showChatPanle" />
+		<music-player ref="minePlayer" />
 	</div>
 </template>
 
@@ -43,6 +37,7 @@ import MessagePanel from "@/components/chat/MessagePanel";
 import MusicPlayer from "@/components/chat/MusicPlayer";
 import ChatProgress from "@/components/chat/ChatProgress";
 import PreImg from "@/components/preImg";
+import bulletChat from '@/components/bulletChat'
 import { setTheme } from "@/theme";
 
 import { history } from "@/api/chat";
@@ -59,6 +54,7 @@ export default {
     MusicPlayer,
     ChatProgress,
     PreImg,
+    bulletChat
   },
   data() {
     return {

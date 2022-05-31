@@ -13,50 +13,29 @@
 			<toolbar-collect />
 		</chat-popup>
 		<div class="toolbar-left">
-			<div
-				:class="[
-          'toolbar-left-item',
-          ' flex_center',
-          { 'active-menu': opt1.show },
-        ]"
-				@click.stop="openBox(1)"
-			>
+			<div :class="['toolbar-left-item',' flex_center',{ 'active-menu': opt1.show },]" @click.stop="openBox(1)">
 				<icon name="toolbar-pic" class="m_r5" scale="1.6" />
 				表情
 			</div>
-			<div
-				:class="[
-          'toolbar-left-item',
-          ' flex_center',
-          { 'active-menu': opt2.show },
-        ]"
-				@click.stop="openBox(2)"
-			>
+			<div :class="['toolbar-left-item',' flex_center',{ 'active-menu': opt2.show },]" @click.stop="openBox(2)">
 				<icon name="toolbar-music" class="m_r5" scale="1.6" />
 				点歌
 			</div>
-			<div
-				:class="[
-          'toolbar-left-item',
-          ' flex_center',
-          { 'active-menu': opt3.show },
-        ]"
-				@click.stop="openBox(3)"
-			>
+			<div :class="['toolbar-left-item',' flex_center',{ 'active-menu': opt3.show }]" @click.stop="openBox(3)">
 				<icon name="toolbar-hook" class="m_r5" scale="1.6" />
 				已点
 			</div>
-			<div
-				:class="[
-          'toolbar-left-item',
-          ' flex_center',
-          { 'active-menu': opt4.show },
-        ]"
-				@click.stop="openBox(4)"
-			>
+			<div :class="[ 'toolbar-left-item', ' flex_center', { 'active-menu': opt4.show }]" @click.stop="openBox(4)">
 				<icon name="toolbar-love" class="m_r5" scale="1.6" />
 				收藏
 			</div>
+			<el-popover placement="top" title="添加作者微信" trigger="click">
+				<wx-pre />
+				<div slot="reference" style="margin-left: 0; color: #09bd12" :class="[ 'toolbar-left-item', ' flex_center']">
+					<icon name="toolbar-wx" class="m_r5" scale="1.8" />
+					微信
+				</div>
+			</el-popover>
 		</div>
 		<div class="toolbar-right"></div>
 	</div>
@@ -68,6 +47,7 @@ import ToolbarEmotion from "./components/ToolbarEmotion.vue";
 import ToolbarChooseMusic from "./components/ToolbarChooseMusic.vue";
 import ToolbarQueueMusic from "./components/ToolbarQueueMusic.vue";
 import ToolbarCollect from "./components/ToolbarCollect.vue";
+import WxPre from "./components/WxPre.vue";
 
 export default {
   components: {
@@ -76,21 +56,14 @@ export default {
     ToolbarChooseMusic,
     ToolbarQueueMusic,
     ToolbarCollect,
+    WxPre
   },
   data() {
     return {
-      opt1: {
-        show: false,
-      },
-      opt2: {
-        show: false,
-      },
-      opt3: {
-        show: false,
-      },
-      opt4: {
-        show: false,
-      },
+      opt1: { show: false },
+      opt2: { show: false },
+      opt3: { show: false },
+      opt4: { show: false },
     };
   },
   methods: {
@@ -128,11 +101,16 @@ export default {
       border-radius: 5px;
       transition: all 0.3s;
       cursor: pointer;
+      position: relative;
       &:nth-child(1) {
         margin-left: 15px;
       }
       &:hover {
         background: @message-hover-bg-color;
+      }
+      .wx-container{
+        position: absolute;
+        bottom: 50px;
       }
     }
     .icon {

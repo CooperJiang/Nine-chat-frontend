@@ -181,8 +181,23 @@ textarea.common-textarea:focus {
   background-color: rgba(@message-drawer-bg-color, .8);
 }
 
-.el-form-item__label, .el-radio, .el-drawer__header, .el-dialog__title, .el-message-box__content, .el-message-box__title{
+.el-form-item__label, .el-radio, .el-drawer__header, .el-dialog__title, .el-message-box__content, .el-message-box__title, .el-popover__title{
   color: @message-main-text-color !important;
+}
+.el-popover__title{
+  font-weight: 600 !important;
+}
+
+/* wxPre */
+.el-popover{
+  background: @message-popup-bg-color !important;
+  border-color: @message-popup-bg-color !important;
+}
+.el-popper .popper__arrow{
+  border-width: 0 !important;
+}
+.el-popper .popper__arrow::after{
+  border-width: 0 !important;
 }
 
 /* 弹窗 */
