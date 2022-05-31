@@ -46,14 +46,14 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(["room_admin_id"]),
+  },
   mounted() {
     this.focus();
   },
   created() {
     this.queryHotMusic();
-  },
-  computed: {
-    ...mapGetters(["room_admin_id"]),
   },
   methods: {
     /* 光标到输入框 */

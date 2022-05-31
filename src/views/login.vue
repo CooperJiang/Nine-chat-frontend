@@ -75,7 +75,6 @@ export default {
         const { user_name, user_password } = this.form;
         localStorage.user_name = user_name;
         localStorage.user_password = user_password;
-        this.$message.success("登录成功!");
       });
     },
 

@@ -1,15 +1,20 @@
-// 默认的主题颜色
-@message-panel-bg-color: var(--message-panel-bg-color, #fff);  // 聊天面板背景色
-@message-main-text-color: var(--message-main-text-color, #333); // 主要文字颜色
-@message-panel-box-shadow: var(--message-panel-box-shadow, 0 0 15px #f2f2f2);  // 聊天面板阴影
-@message-panel-tips-bg-color: var(--message-panel-tips-bg-color, #eee);  // 聊天面板公告背景 提示框背景
-@message-border-color: var(--message-border-color, #eee);  // 边框颜色
-@message-popup-bg-color: var(--message-popup-bg-color, #ffffffb3);  // 弹窗的背景色
-@message-hover-bg-color: var(--message-hover-bg-color, #e0dede);  // hover背景色
+/* 聊天面板背景色 */
+@message-panel-bg-color: var(--message-panel-bg-color, #fff);  
+/* 主要文字颜色 */
+@message-main-text-color: var(--message-main-text-color, #333); 
+/* 聊天面板阴影 */
+@message-panel-box-shadow: var(--message-panel-box-shadow, 0 0 15px #f2f2f2);  
+/* 聊天面板公告背景 提示框背景 */
+@message-panel-tips-bg-color: var(--message-panel-tips-bg-color, #eee);  
+/* 边框颜色 */
+@message-border-color: var(--message-border-color, #eee);  
+/* 弹窗的背景色 */
+@message-popup-bg-color: var(--message-popup-bg-color, #ffffffb3);  
+/* hover背景色 */
+@message-hover-bg-color: var(--message-hover-bg-color, #e0dede);  
+/* 右侧抽屉背景色 */
+@message-drawer-bg-color: var(--message-drawer-bg-color, #fff); 
 
-/* 全局 */
-@message-drawer-bg-color: var(--message-drawer-bg-color, #fff); // 右侧抽屉背景色
-// 导出变量
 :export {
   name: "less";
   message-panel-bg-color: @message-panel-bg-color;

@@ -14,14 +14,14 @@ export default {
       isPlay: false,
     };
   },
+  computed: {
+    ...mapState(["music_src", "music_start_time"]),
+  },
   watch: {
     music_start_time(n) {
       this.time = n;
       this.specifiedTime(n);
     },
-  },
-  computed: {
-    ...mapState(["music_src", "music_start_time"]),
   },
   mounted() {
     document.addEventListener("touchstart", this.handlerTouchPlay, false);

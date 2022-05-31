@@ -86,6 +86,12 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(["mine_id", "room_info"]),
+  },
+  created() {
+    this.initRoomInfo();
+  },
   methods: {
     ...mapActions(["getRoomInfo"]),
     handleAvatarSuccess(res) {
@@ -173,14 +179,6 @@ export default {
       this.$socket.client.connected &&
         this.$socket.client.emit("updateRoomInfo", newRoomInfo);
     },
-  },
-  watch: {},
-  created() {
-    this.initRoomInfo();
-  },
-  mounted() {},
-  computed: {
-    ...mapGetters(["mine_id", "room_info"]),
   },
 };
 </script>

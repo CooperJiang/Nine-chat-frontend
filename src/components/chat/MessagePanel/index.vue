@@ -160,6 +160,86 @@ export default {
         "https://img1.baidu.com/it/u=430660535,1172956011&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
     };
   },
+  computed: {
+    ...mapState(["messageList", "un_read_msg_num"]),
+    ...mapGetters(["mine_id", "room_admin_id"]),
+    messageClass() {
+      return (item) => {
+        const { user_id, message_type } = item;
+        if (!["info", "notice"].includes(message_type)) {
+          return user_id === this.mine_id ? "mine" : "other";
+        }
+        return message_type;
+      };
+    },
+
+    textClass() {
+      return (item) => {
+        if (!item.user_info) return;
+        const { user_role, id } = item.user_info;
+        if (user_role === "admin") return "admin-text";
+        if (this.room_admin_id === id) return "homeowner";
+      };
+    },
+
+    /* 不属于文字，图片，提示等类型的其他格式消息 */
+    otherFileType() {
+      return (type) => ![
+          ...this.imgMessageType,
+          ...this.tipsMessageType,
+          "text",
+        ].includes(type);
+    },
+
+    /* 检测是不是URL地址 */
+    isUrl() {
+      return (text) => {
+        const reg =
+          /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+        return reg.test(text);
+      };
+    },
+  },
+  watch: {
+    /* 来了新消息并且在450范围内就直接滚动到消息查看，否则提示未读消息数量 */
+    messageList(n, o) {
+      if (!n.length) return;
+      const isOneMsg = n.length - o.length === 1; // 是否本次增加了一条消息
+
+      /*  记录旧的数据第一个id可以拿到所有消息的最顶部那条消息id 然后拿到节点 */
+      const lastNodeId = o.length > 10 ? o[0].id : 0;
+
+      /* 当不是在可视区域并且一次不止一条消息加入队列的情况说明是上拉刷新 */
+      if (!this.isVisible && !isOneMsg) {
+        /* 加载完成后将历史消息的第一条置于可视区域即可 */
+        this.$nextTick(() => {
+          this.$refs[`message__${lastNodeId}`][0].scrollIntoView();
+        });
+      }
+      /* 增加一条消息的时候窗口滚动才添加动画 批量增加可能是初始化或者 上拉加载 不需要动画 */
+      const params = isOneMsg ? { behavior: "smooth" } : {};
+      this.$nextTick(() => this.isVisible && this.toEnd(params));
+
+      /* 不在可是区域并且增加了一条消息 提示未读消息+1 */
+      !this.isVisible &&
+        isOneMsg &&
+        this.setUnReadMsgNum(this.un_read_msg_num + 1);
+    },
+
+    stopLoadmore(n) {
+      n &&
+        document
+          .querySelector(`#box`)
+          .removeEventListener("scroll", this.scrollToTop);
+    },
+  },
+  mounted() {
+    const panel = document.querySelector(`#box`);
+    panel.addEventListener("scroll", this.scrollToTop);
+    this.$once("hook:beforeDestory", () =>
+      panel.removeEventListener("scroll", this.scrollToTop)
+    );
+  },
   methods: {
     ...mapMutations(["setMessageDataList", "setUnReadMsgNum", "setPreImg"]),
     replaceEmotionText,
@@ -239,86 +319,6 @@ export default {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-    },
-  },
-  watch: {
-    /* 来了新消息并且在450范围内就直接滚动到消息查看，否则提示未读消息数量 */
-    messageList(n, o) {
-      if (!n.length) return;
-      const isOneMsg = n.length - o.length === 1; // 是否本次增加了一条消息
-
-      /*  记录旧的数据第一个id可以拿到所有消息的最顶部那条消息id 然后拿到节点 */
-      const lastNodeId = o.length > 10 ? o[0].id : 0;
-
-      /* 当不是在可视区域并且一次不止一条消息加入队列的情况说明是上拉刷新 */
-      if (!this.isVisible && !isOneMsg) {
-        /* 加载完成后将历史消息的第一条置于可视区域即可 */
-        this.$nextTick(() => {
-          this.$refs[`message__${lastNodeId}`][0].scrollIntoView();
-        });
-      }
-      /* 增加一条消息的时候窗口滚动才添加动画 批量增加可能是初始化或者 上拉加载 不需要动画 */
-      const params = isOneMsg ? { behavior: "smooth" } : {};
-      this.$nextTick(() => this.isVisible && this.toEnd(params));
-
-      /* 不在可是区域并且增加了一条消息 提示未读消息+1 */
-      !this.isVisible &&
-        isOneMsg &&
-        this.setUnReadMsgNum(this.un_read_msg_num + 1);
-    },
-
-    stopLoadmore(n) {
-      n &&
-        document
-          .querySelector(`#box`)
-          .removeEventListener("scroll", this.scrollToTop);
-    },
-  },
-  mounted() {
-    const panel = document.querySelector(`#box`);
-    panel.addEventListener("scroll", this.scrollToTop);
-    this.$once("hook:beforeDestory", () =>
-      panel.removeEventListener("scroll", this.scrollToTop)
-    );
-  },
-  computed: {
-    ...mapState(["messageList", "un_read_msg_num"]),
-    ...mapGetters(["mine_id", "room_admin_id"]),
-    messageClass() {
-      return (item) => {
-        const { user_id, message_type } = item;
-        if (!["info", "notice"].includes(message_type)) {
-          return user_id === this.mine_id ? "mine" : "other";
-        }
-        return message_type;
-      };
-    },
-
-    textClass() {
-      return (item) => {
-        if (!item.user_info) return;
-        const { user_role, id } = item.user_info;
-        if (user_role === "admin") return "admin-text";
-        if (this.room_admin_id === id) return "homeowner";
-      };
-    },
-
-    /* 不属于文字，图片，提示等类型的其他格式消息 */
-    otherFileType() {
-      return (type) => ![
-          ...this.imgMessageType,
-          ...this.tipsMessageType,
-          "text",
-        ].includes(type);
-    },
-
-    /* 检测是不是URL地址 */
-    isUrl() {
-      return (text) => {
-        const reg =
-          /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
-        return reg.test(text);
-      };
     },
   },
 };

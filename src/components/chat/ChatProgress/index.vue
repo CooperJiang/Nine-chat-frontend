@@ -18,12 +18,6 @@ import { mapState } from "vuex";
 import { collectMusic } from "@/api/music";
 
 export default {
-  methods: {
-    async collectMusic() {
-      await collectMusic(this.music_info);
-      this.$message.success("歌曲收藏成功！");
-    },
-  },
   computed: {
     ...mapState(["current_music_time", "music_info"]),
     width() {
@@ -34,6 +28,12 @@ export default {
         100
       ).toFixed(2);
       return width > 100 ? 100 : width;
+    },
+  },
+  methods: {
+    async collectMusic() {
+      await collectMusic(this.music_info);
+      this.$message.success("歌曲收藏成功！");
     },
   },
 };

@@ -39,16 +39,6 @@ import { mapMutations } from "vuex";
 import { setTheme } from "@/theme";
 
 export default {
-  methods: {
-    ...mapMutations([
-      "setGlobalRoomConfig",
-      "clearTipsInfo",
-      "clearNoticeInfo",
-    ]),
-    changeTheme(val) {
-      setTheme(val);
-    },
-  },
   computed: {
     showTipsJoinRoom: {
       get() {
@@ -107,9 +97,16 @@ export default {
       },
     },
   },
-  watch: {},
-  created() {},
-  mounted() {},
+  methods: {
+    ...mapMutations([
+      "setGlobalRoomConfig",
+      "clearTipsInfo",
+      "clearNoticeInfo",
+    ]),
+    changeTheme(val) {
+      setTheme(val);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

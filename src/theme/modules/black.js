@@ -7,5 +7,5 @@ export default {
 	'message-popup-bg-color': '#292f45e6',
 	'message-hover-bg-color': '#292f45e6',
 
-	'message-drawer-bg-color': `#2a283dcf` // 抽屉
+	'message-drawer-bg-color': `#2a283dcf`
 };

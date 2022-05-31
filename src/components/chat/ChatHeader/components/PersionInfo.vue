@@ -84,6 +84,12 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(["user_info"]),
+  },
+  created() {
+    this.initUserInfo();
+  },
   methods: {
     ...mapActions(["getUserInfo"]),
     handleAvatarSuccess(res) {
@@ -154,14 +160,6 @@ export default {
       this.$message.success("已移除掉您的专属背景！");
       await this.getUserInfo();
     },
-  },
-  watch: {},
-  created() {
-    this.initUserInfo();
-  },
-  mounted() {},
-  computed: {
-    ...mapGetters(["user_info"]),
   },
 };
 </script>

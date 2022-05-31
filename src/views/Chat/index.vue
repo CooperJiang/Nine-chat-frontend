@@ -23,12 +23,12 @@
 		</transition>
 		<div>
 			<music-player ref="minePlayer" />
-			<Popup :show="showPopup" :width="'300px'" title="欢迎加入聊天室" top="45vh" lock :show-close-btn="false" @close="closePopup">
-				<div :style="{ marginLeft: '20px' }">请注意、加入聊天室将自动播放音乐</div>
-				<div slot="footer">
-					<btn theme="gradient" @click="passJoin">确认加入</btn>
-				</div>
-			</Popup>
+			<!-- <el-dialog title="欢迎加入聊天室" top="40vh" :close-on-click-modal="false" :closed="hanlderCloseDialog" :close-on-press-escape="false" :visible.sync="showPopup" width="300px">
+				<span>请注意、加入聊天室将自动播放音乐</span>
+				<span slot="footer" class="dialog-footer">
+					<el-button size="mini" @click="passJoin">加入房间</el-button>
+				</span>
+			</el-dialog> -->
 		</div>
 	</div>
 </template>
@@ -42,8 +42,6 @@ import ChatLrc from "@/components/chat/ChatLrc";
 import MessagePanel from "@/components/chat/MessagePanel";
 import MusicPlayer from "@/components/chat/MusicPlayer";
 import ChatProgress from "@/components/chat/ChatProgress";
-import Popup from "@/components/Popup";
-import Btn from "@/components/Btn";
 import PreImg from "@/components/preImg";
 import { setTheme } from "@/theme";
 
@@ -60,8 +58,6 @@ export default {
     MessagePanel,
     MusicPlayer,
     ChatProgress,
-    Popup,
-    Btn,
     PreImg,
   },
   data() {
@@ -174,9 +170,48 @@ export default {
       this.setOnlineUserList(on_line_user_list);
     },
   },
+  computed: {
+    ...mapState([
+      "room_id",
+      "un_read_msg_num",
+      "pre_img",
+      "showTipsJoinRoom",
+      "showTipsQuitRoom",
+      "showTipsSwitchMusic",
+      "theme",
+      "showTipsPlayMusic",
+      "showTipsNotice",
+    ]),
+    ...mapGetters(["room_info", "mine_room_bg"]),
+    room_bg() {
+      return (
+        this.mine_room_bg || this.room_info?.room_bg_img || default_room_bg
+      );
+    },
+  },
+  watch: {
+    room_id(n, o) {
+      if (Number(n) === Number(o) || !n) return;
+      this.$socket.client.disconnect();
+      this.resetRoom();
+      this.initSocket();
+    },
+  },
   created() {
     this.initLocalStorageConfig();
     localStorage.room_id && this.setRoomId(localStorage.room_id);
+    this.$confirm('请注意、加入聊天室将自动播放音乐!', '欢迎加入聊天室', {
+      confirmButtonText: '加入房间',
+      cancelButtonText: '取消',
+    }).then(() => this.passJoin()).catch( () => this.logout())
+  },
+  mounted() {
+    this.initUserAddress();
+    document.addEventListener("keyup", this.keyboardEvent);
+  },
+  beforeDestroy() {
+    this.$socket.connected && this.$socket.client.disconnect();
+    document.removeEventListener("keyup", this.keyboardEvent, true);
   },
   methods: {
     ...mapActions([
@@ -351,6 +386,10 @@ export default {
       return false;
     },
 
+    hanlderCloseDialog(){
+      this.logout()
+    },
+
     /* 初始化全部配置，拿到本地缓存的历史配置,并设置主题 */
     initLocalStorageConfig() {
       const storageKeys = [
@@ -369,42 +408,7 @@ export default {
       const theme = localStorage.theme || "default";
       setTheme(theme);
     },
-  },
-  watch: {
-    room_id(n, o) {
-      if (Number(n) === Number(o) || !n) return;
-      this.$socket.client.disconnect();
-      this.resetRoom();
-      this.initSocket();
-    },
-  },
-  mounted() {
-    this.initUserAddress();
-    document.addEventListener("keyup", this.keyboardEvent);
-  },
-  computed: {
-    ...mapState([
-      "room_id",
-      "un_read_msg_num",
-      "pre_img",
-      "showTipsJoinRoom",
-      "showTipsQuitRoom",
-      "showTipsSwitchMusic",
-      "theme",
-      "showTipsPlayMusic",
-      "showTipsNotice",
-    ]),
-    ...mapGetters(["room_info", "mine_room_bg"]),
-    room_bg() {
-      return (
-        this.mine_room_bg || this.room_info?.room_bg_img || default_room_bg
-      );
-    },
-  },
-  beforeDestroy() {
-    this.$socket.connected && this.$socket.client.disconnect();
-    document.removeEventListener("keyup", this.keyboardEvent, true);
-  },
+  }
 };
 </script>
 
@@ -467,7 +471,7 @@ export default {
       margin-bottom: 5px;
     }
     &-footer {
-      // padding: 0 18px;
+      padding: 0;
     }
   }
 }

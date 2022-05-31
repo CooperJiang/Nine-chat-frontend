@@ -67,7 +67,7 @@
 				<icon name="chat-mine" scale="1.8" class="icon" />
 				<span class="visible-xl visible-lg">我的</span>
 			</div>
-			<div class="header-right-item flex_center" @click="logout">
+			<div class="header-right-item flex_center" @click="handlerLogout">
 				<icon name="chat-go" scale="1.8" class="icon" />
 				<span class="visible-xl visible-lg">登出</span>
 			</div>
@@ -117,6 +117,25 @@ export default {
       createRoomVisible: false,
     };
   },
+  computed: {
+    ...mapGetters([
+      "mine_room_id",
+      "onLineRoomNum",
+      "onLineUserNum",
+      "room_id",
+      "room_info",
+      "user_info",
+    ]),
+    btnText() {
+      return !this.mine_room_id ? "创建房间" : "我的房间";
+    },
+    copyText() {
+      return "分享内容";
+    },
+    isMineRoom() {
+      return Number(this.room_id) === Number(this.mine_room_id);
+    },
+  },
   methods: {
     ...mapActions(["getUserInfo", "logout"]),
     ...mapMutations(["setRoomId", "setSignInPopup"]),
@@ -155,29 +174,16 @@ export default {
       this.createRoomVisible = false;
       this.getUserInfo();
     },
-  },
-  watch: {},
-  created() {},
-  mounted() {},
-  computed: {
-    ...mapGetters([
-      "mine_room_id",
-      "onLineRoomNum",
-      "onLineUserNum",
-      "room_id",
-      "room_info",
-      "user_info",
-    ]),
-    btnText() {
-      return !this.mine_room_id ? "创建房间" : "我的房间";
-    },
-    copyText() {
-      return "分享内容";
-    },
-    isMineRoom() {
-      return Number(this.room_id) === Number(this.mine_room_id);
-    },
-  },
+
+    /* 退出登录 */
+    handlerLogout() {
+      this.$confirm('是否需要退出登录?', '退出登录', {
+        confirmButtonText: '退出',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => this.logout()).catch()
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

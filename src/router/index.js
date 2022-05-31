@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Chat';
 
 Vue.use(VueRouter);
 
@@ -8,7 +7,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: Home
+		component: () => import('../views/Chat')
 	},
 	{
 		path: '/login',
@@ -19,6 +18,10 @@ const routes = [
 		path: '/register',
 		name: 'Register',
 		component: () => import('../views/register.vue')
+	},
+	{
+		path: '*',
+		redirect: '/'
 	}
 ];
 

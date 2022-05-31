@@ -54,7 +54,6 @@
 <script>
 import axios from "axios";
 import ChatToolbar from "@/components/chat/ChatToolbar";
-import config from '@/config'
 
 export default {
   components: { ChatToolbar },

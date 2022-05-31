@@ -1,6 +1,5 @@
 import { getInfo } from '@/api/user';
 import { queryRoomInfo } from '@/api/chat';
-import { $message } from '@/components/Message/index.js';
 import router from '../router/index';
 
 export default {
@@ -25,15 +24,13 @@ export default {
 		});
 	},
 
+	/* 退出登录 */
 	async logout({ commit }) {
 		return new Promise(resolve => {
 			localStorage.removeItem('chat_token');
 			commit('setToken', null);
 			commit('resetStore');
-			$message.error('即将退出小九的聊天室');
-			setTimeout(() => {
-				router.push('/login');
-			}, 1000);
+			router.push('/login');
 			resolve();
 		});
 	}

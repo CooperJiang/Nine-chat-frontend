@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { Message } from 'element-ui';
 import store from '../store/index';
 import { getToken } from '@/utils/auth';
-import { $message } from '@/components/Message/index.js';
 
 const service = axios.create({
 	baseURL: process.env.VUE_APP_BASE_API,
@@ -27,14 +27,14 @@ service.interceptors.response.use(
 	},
 	error => {
 		if (error.message === 'timeout of 5000ms exceeded') {
-			$message.error('请求超时，请检查您的网络状态或重新请求！');
+			Message.error('请求超时，请检查您的网络状态或重新请求！');
 		}
 		const { code, message } = error.response.data;
 		if (code === 401) {
-			$message.error(`身份信息校验失败、请重新登录`);
+			Message.error(`身份信息校验失败、请重新登录`);
 			store.dispatch('logout');
 		} else {
-			$message.error(message);
+			Message.error(message);
 		}
 		return Promise.reject(error);
 	}

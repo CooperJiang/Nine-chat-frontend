@@ -169,14 +169,19 @@ textarea.common-textarea:focus {
 /* element 全局样式修改 */
 
 /* 抽屉颜色 */
-.el-drawer, .el-dialog{
+.el-drawer, .el-dialog, .el-message-box{
   background-color:  @message-drawer-bg-color !important;
 }
+
+.el-message-box{
+  border: 1px solid @message-drawer-bg-color !important;
+}
+
 .el-drawer__open .el-drawer.rtl{
   background-color: rgba(@message-drawer-bg-color, .8);
 }
 
-.el-form-item__label, .el-radio, .el-drawer__header, .el-dialog__title{
+.el-form-item__label, .el-radio, .el-drawer__header, .el-dialog__title, .el-message-box__content, .el-message-box__title{
   color: @message-main-text-color !important;
 }
 
