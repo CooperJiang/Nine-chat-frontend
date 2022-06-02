@@ -83,7 +83,7 @@ export default {
     },
 
     testLogin() {
-      this.form.user_name = "admin2";
+      this.form.user_name = "test";
       this.form.user_password = "123456";
       this.login();
     },

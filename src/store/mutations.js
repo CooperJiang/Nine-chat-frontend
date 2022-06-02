@@ -1,3 +1,5 @@
+import getDefaultValue from './default';
+
 export default {
 	setSignInPopup(state, isShow) {
 		state.showSignInPopup = isShow;
@@ -98,14 +100,7 @@ export default {
 	},
 
 	resetStore(state) {
-		state.room_list = [];
-		state.on_line_user_list = [];
-		state.messageList = [];
-		state.music_queue_list = [];
-		state.music_info = {};
-		state.user_info = null;
-		state.music_lrc = null;
-		state.music_src = null;
+		Object.assign(state, getDefaultValue());
 	},
 
 	/* 设置预览图片 */
