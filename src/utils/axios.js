@@ -33,6 +33,9 @@ service.interceptors.response.use(
 		if (code === 401) {
 			Message.error(`身份信息校验失败、请重新登录`);
 			store.dispatch('logout');
+		} else if (code === 500) {
+			store.commit('resetStore');
+			store.dispatch('logout');
 		} else {
 			Message.error(message);
 		}

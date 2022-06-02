@@ -2,7 +2,7 @@
 	<div class="bullect">
 		<span></span>
 		<!-- <span>弹幕系统将于3.0开发</span> -->
-		<div class="bullect-lrc">
+		<div v-if="lrc" class="bullect-lrc">
 			{{ lrc || "歌词正在加载中..." }}
 		</div>
 	</div>
