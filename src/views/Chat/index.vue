@@ -149,8 +149,10 @@ export default {
       /* -2 是特殊情况 被挤下线 */
       code === -2 && this.$message.error(msg);
       code === -2 && this.logout(false);
+      /* -3是加入的房间不存在，需要自己回归到888主房间 */
+      code === -3 && this.$message.error(msg);
+      code === -3 && this.setRoomId(888)
     },
-
     /* 有新的点的歌曲信息、更新队列歌单并消息提示 */
     chooseMusic(data) {
       const { music_queue_list, msg } = data;

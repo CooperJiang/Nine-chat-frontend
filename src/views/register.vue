@@ -2,7 +2,7 @@
 	<div class="login">
 		<div class="login-container">
 			<div class="logo">
-				<img src="https://img2.baidu.com/it/u=2285567582,1185119578&fm=26&fmt=auto" />
+				<img src="../assets/logo.gif" />
 				<span class="logo-name">小九音乐聊天室</span>
 			</div>
 

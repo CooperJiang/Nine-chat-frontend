@@ -2,7 +2,7 @@
 	<div class="login">
 		<div class="login-container">
 			<div class="logo">
-				<img src="https://img2.baidu.com/it/u=2285567582,1185119578&fm=26&fmt=auto" />
+				<img src="../assets/logo.gif" />
 				<span class="logo-name">小九音乐聊天室</span>
 			</div>
 
@@ -19,7 +19,7 @@
 
 			<div class="links">
 				<a @click="foegetPassword">忘记密码</a>
-				<a @click="testLogin">使用测试账号登录</a>
+				<!-- <a @click="testLogin">使用测试账号登录</a> -->
 				<a @click="$router.push('/register')">注册账号</a>
 			</div>
 

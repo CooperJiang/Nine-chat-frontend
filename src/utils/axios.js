@@ -26,15 +26,19 @@ service.interceptors.response.use(
 		return res;
 	},
 	error => {
+		console.log('error: ', { error });
 		if (error.message === 'timeout of 5000ms exceeded') {
 			Message.error('请求超时，请检查您的网络状态或重新请求！');
 		}
-		const { code, message } = error.response.data;
+		const { status, data } = error.response;
+		const { code, message } = data;
+		if (status === 500) {
+			store.commit('resetStore');
+			store.dispatch('logout');
+			return;
+		}
 		if (code === 401) {
 			Message.error(`身份信息校验失败、请重新登录`);
-			store.dispatch('logout');
-		} else if (code === 500) {
-			store.commit('resetStore');
 			store.dispatch('logout');
 		} else {
 			Message.error(message);
