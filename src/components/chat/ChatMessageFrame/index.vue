@@ -53,7 +53,7 @@
 
 <script>
 import axios from "axios";
-import ChatToolbar from "@/components/chat/ChatToolbar";
+import ChatToolbar from "@/components/Chat/ChatToolbar";
 import config from '@/config/index.js'
 
 const {file_upload_url} = config
@@ -183,7 +183,7 @@ export default {
 
     /* 发送完消息清空对象 */
     clearData() {
-      this.message = null;
+      this.message = '';
       this.quoteMessage = null;
       this.preImgBlob = null;
       this.fileInfo = null;

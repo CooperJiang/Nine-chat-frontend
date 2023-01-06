@@ -26,16 +26,15 @@ export default {
 <style lang="less" scoped>
 .bullect{
   width: 100%;
-  height: 100%;
+  height: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   color: #fff;
-  font-size: 30px;
+  font-size: 18px;
   &-lrc{
-    margin-bottom: 100px;
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 </style>

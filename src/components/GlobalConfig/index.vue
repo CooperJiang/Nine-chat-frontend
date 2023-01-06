@@ -30,6 +30,15 @@
 				<el-button type="danger" size="mini" @click="clearTipsInfo">清空提示信息</el-button>
 				<el-button type="danger" size="mini" @click="clearNoticeInfo">清空公告信息</el-button>
 			</el-form-item>
+			<el-form-item label="是否显示历史弹幕">
+				<el-switch v-model="showHistoryBarrageInfo"></el-switch>
+			</el-form-item>
+			<el-form-item label="是否显示图片弹幕">
+				<el-switch v-model="showBarrageImg"></el-switch>
+			</el-form-item>
+			<el-form-item label="是否显示弹幕头像">
+				<el-switch v-model="showBarrageAvatar"></el-switch>
+			</el-form-item>
 		</el-form>
 	</div>
 </template>
@@ -94,6 +103,30 @@ export default {
       },
       set(value) {
         return this.setGlobalRoomConfig({ key: "theme", value });
+      },
+    },
+    showHistoryBarrageInfo: {
+      get() {
+        return this.$store.state.showHistoryBarrageInfo;
+      },
+      set(value) {
+        return this.setGlobalRoomConfig({ key: "showHistoryBarrageInfo", value });
+      },
+    },
+    showBarrageImg: {
+      get() {
+        return this.$store.state.showBarrageImg;
+      },
+      set(value) {
+        return this.setGlobalRoomConfig({ key: "showBarrageImg", value });
+      },
+    },
+    showBarrageAvatar: {
+      get() {
+        return this.$store.state.showBarrageAvatar;
+      },
+      set(value) {
+        return this.setGlobalRoomConfig({ key: "showBarrageAvatar", value });
       },
     },
   },

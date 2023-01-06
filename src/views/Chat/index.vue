@@ -1,5 +1,6 @@
 <template>
 	<div class="chat" :style="{ backgroundImage: `url(${room_bg})` }">
+		<!-- 主要面板 -->
 		<transition name="message-panel" mode="out-in">
 			<div v-show="showChatPanle" class="chat-container">
 				<div class="chat-container-header">
@@ -22,7 +23,25 @@
 			</div>
 		</transition>
 
-		<bullet-chat v-show="!showChatPanle" />
+		<!-- 弹幕 -->
+		<Barrage v-if="!lock" :new-msg="newMsg" class="chat-barrage-wapper" />
+
+		<!-- 弹幕聊天场景 -->
+		<transition name="message-panel" mode="out-in">
+			<div v-show="!showChatPanle && !lock" class="chat-barrage">
+				<div class="chat-container-progress">
+					<chat-progress />
+				</div>
+				<div class="chat-container-footer">
+					<chat-message-frame ref="messageFrame" />
+					<chat-lrc />
+				</div>
+				<pre-img :data="pre_img" />
+			</div>
+		</transition>
+
+		<!-- esc隐藏面板的歌词 -->
+		<!-- <bullet-chat v-show="!showChatPanle" class="chat-bullet" /> -->
 		<music-player ref="minePlayer" />
 	</div>
 </template>
@@ -30,14 +49,15 @@
 <script>
 import Vue from "vue";
 import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
-import ChatHeader from "@/components/chat/ChatHeader";
-import ChatMessageFrame from "@/components/chat/ChatMessageFrame";
-import ChatLrc from "@/components/chat/ChatLrc";
-import MessagePanel from "@/components/chat/MessagePanel";
-import MusicPlayer from "@/components/chat/MusicPlayer";
-import ChatProgress from "@/components/chat/ChatProgress";
-import PreImg from "@/components/preImg";
-import bulletChat from '@/components/bulletChat'
+import ChatHeader from "@/components/Chat/ChatHeader";
+import ChatMessageFrame from "@/components/Chat/ChatMessageFrame";
+import ChatLrc from "@/components/Chat/ChatLrc";
+import MessagePanel from "@/components/Chat/MessagePanel";
+import MusicPlayer from "@/components/Chat/MusicPlayer";
+import ChatProgress from "@/components/Chat/ChatProgress";
+import PreImg from "@/components/PreImg";
+// import bulletChat from '@/components/BulletChat'
+import Barrage from '@/components/Barrage'
 import { setTheme } from "@/theme";
 
 import { history } from "@/api/chat";
@@ -54,7 +74,8 @@ export default {
     MusicPlayer,
     ChatProgress,
     PreImg,
-    bulletChat
+    // bulletChat,
+    Barrage
   },
   data() {
     return {
@@ -66,6 +87,8 @@ export default {
         page: 1,
         pagesize: 20,
       },
+      count: 1,
+      newMsg: ''
     };
   },
   sockets: {
@@ -121,6 +144,7 @@ export default {
 
     /* 来了一条新消息 */
     message(data) {
+      this.newMsg = data.data
       this.setMessageDataList(data.data);
     },
 
@@ -179,7 +203,7 @@ export default {
       "showTipsSwitchMusic",
       "theme",
       "showTipsPlayMusic",
-      "showTipsNotice",
+      "showTipsNotice"
     ]),
     ...mapGetters(["room_info", "mine_room_bg"]),
     room_bg() {
@@ -253,10 +277,11 @@ export default {
     /* 初始化ws需要参数携带token room_id 地址 前去校验 连接后挂载在全局 */
     async initSocket() {
       const token = localStorage.chat_token;
-      if (!window.returnCitySN) {
+      if (!window.returnCitySN && this.count<= 3) {
+        this.count++
         setTimeout(() => this.initSocket(), 50);
       } else {
-        const { cname } = window.returnCitySN;
+        const cname = window.returnCitySN? window.returnCitySN.cname : this.getRandomAddr();
         this.$socket.client.io.opts.query = {
           token,
           address: cname,
@@ -266,6 +291,13 @@ export default {
         this.$socket.client.open();
         Vue.prototype.$socket = this.$socket;
       }
+    },
+
+     /* random address */
+     getRandomAddr(){
+      const i = Math.round(Math.random()*5);
+      const randomAddrs = ['金星','木星','水星','火星','土星','月球']
+      return randomAddrs[i]
     },
 
     /* 初始化点歌列表队列、到点歌曲切换 设置当前正在播放的歌曲信息 都走这里 */
@@ -398,6 +430,9 @@ export default {
         "theme",
         "show_all_tips",
         "showTipsNotice",
+        "showHistoryBarrageInfo",
+        "showBarrageImg",
+        "showBarrageAvatar"
       ];
       storageKeys.forEach(
         (key) =>
@@ -472,6 +507,26 @@ export default {
     &-footer {
       padding: 0;
     }
+  }
+  &-barrage{
+    position: fixed;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    z-index: 10;
+    background: @message-panel-bg-color;
+    box-shadow: @message-panel-box-shadow;
+    border-radius: 10px;
+  }
+  &-bullet{
+    position: fixed;
+    bottom: 2%;
+    z-index: 1;
+  }
+  &-barrage-wapper{
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 }
 </style>

@@ -23,6 +23,9 @@ export default function getDefaultValue() {
 		showTipsSwitchMusic: true,
 		showTipsPlayMusic: true,
 		showTipsNotice: true,
-		theme: 'default'
+		showHistoryBarrageInfo: true,
+		showBarrageImg: false,
+		showBarrageAvatar: true,
+		theme: 'black'
 	};
 }

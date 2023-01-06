@@ -14,6 +14,7 @@
 				<icon name="chat-share" scale="1.8" class="icon" />
 				<span class="visible-xl visible-lg">分享</span>
 			</div>
+			<ChatTips class="visible-xl visible-lg" />
 		</div>
 
 		<!-- pannel right -->
@@ -97,9 +98,10 @@ import OnlineList from "./components/OnLineList.vue";
 import RoomList from "./components/RoomList.vue";
 import PersionInfo from "./components/PersionInfo.vue";
 import RoomSetting from "./components/RoomSetting.vue";
+import ChatTips from "../ChatTips";
 
 export default {
-  components: { ChatPopup, OnlineList, RoomList, PersionInfo, RoomSetting },
+  components: { ChatPopup, OnlineList, RoomList, PersionInfo, RoomSetting,ChatTips },
   data() {
     return {
       opt1: { show: false },
