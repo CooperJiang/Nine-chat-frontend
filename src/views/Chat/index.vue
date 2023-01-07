@@ -2,7 +2,7 @@
 	<div class="chat" :style="{ backgroundImage: `url(${room_bg})` }">
 		<!-- 主要面板 -->
 		<transition name="message-panel" mode="out-in">
-			<div v-show="showChatPanle" class="chat-container">
+			<div v-if="showChatPanle" class="chat-container">
 				<div class="chat-container-header">
 					<chat-header ref="header" />
 				</div>
@@ -28,7 +28,7 @@
 
 		<!-- 弹幕聊天场景 -->
 		<transition name="message-panel" mode="out-in">
-			<div v-show="!showChatPanle && !lock" class="chat-barrage">
+			<div v-if="!showChatPanle && !lock" class="chat-barrage">
 				<div class="chat-container-progress">
 					<chat-progress />
 				</div>
