@@ -10,7 +10,7 @@ const whiteList = ['/login', '/register'];
 
 router.beforeEach(async (to, from, next) => {
 	NProgress.start();
-	document.title = '小九的聊天室';
+	document.title = '的聊天室';
 	if (to.path) {
 		if (window._hmt) {
 			window._hmt.push(['_trackPageview', `/#${to.fullPath}`]);

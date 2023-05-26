@@ -3,7 +3,7 @@
 		<div class="login-container">
 			<div class="logo">
 				<img src="../assets/logo.gif" />
-				<span class="logo-name">小九音乐聊天室</span>
+				<span class="logo-name">音乐聊天室</span>
 			</div>
 
 			<div class="form">
@@ -23,7 +23,7 @@
 				<a @click="$router.push('/register')">注册账号</a>
 			</div>
 
-			<el-button style="width: 100%" type="primary" size="medium" @click="login">登录小九聊天室</el-button>
+			<el-button style="width: 100%" type="primary" size="medium" @click="login">登录聊天室</el-button>
 		</div>
 	</div>
 </template>

@@ -49,15 +49,15 @@
 <script>
 import Vue from "vue";
 import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
-import ChatHeader from "@/components/Chat/ChatHeader";
-import ChatMessageFrame from "@/components/Chat/ChatMessageFrame";
-import ChatLrc from "@/components/Chat/ChatLrc";
-import MessagePanel from "@/components/Chat/MessagePanel";
-import MusicPlayer from "@/components/Chat/MusicPlayer";
-import ChatProgress from "@/components/Chat/ChatProgress";
-import PreImg from "@/components/PreImg";
+import ChatHeader from "@/components/Chat/ChatHeader/index.vue";
+import ChatMessageFrame from "@/components/Chat/ChatMessageFrame/index.vue";
+import ChatLrc from "@/components/Chat/ChatLrc/index.vue";
+import MessagePanel from "@/components/Chat/MessagePanel/index.vue";
+import MusicPlayer from "@/components/Chat/MusicPlayer/index.vue";
+import ChatProgress from "@/components/Chat/ChatProgress/index.vue";
+import PreImg from "@/components/preImg/index.vue";
 // import bulletChat from '@/components/BulletChat'
-import Barrage from '@/components/Barrage'
+import Barrage from '@/components/Barrage/index.vue'
 import { setTheme } from "@/theme";
 
 import { history } from "@/api/chat";

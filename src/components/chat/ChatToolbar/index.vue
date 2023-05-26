@@ -29,13 +29,6 @@
 				<icon name="toolbar-love" class="m_r5" scale="1.6" />
 				收藏
 			</div>
-			<el-popover placement="top" title="添加作者微信" trigger="click">
-				<wx-pre />
-				<div slot="reference" style="margin-left: 0; color: #09bd12" :class="[ 'toolbar-left-item', ' flex_center']">
-					<icon name="toolbar-wx" class="m_r5" scale="1.8" />
-					微信
-				</div>
-			</el-popover>
 		</div>
 		<div class="toolbar-right"></div>
 	</div>
