@@ -7,7 +7,7 @@
 			</div>
 			<div class="header-left-name">
 				<span class="visible-xl visible-lg">{{
-          (room_info && room_info.room_name) || "小九的聊天室"
+          (room_info && room_info.room_name) || "的聊天室"
 				}}</span>
 			</div>
 			<div class="header-left-share flex_center" :data-clipboard-text="copyText" @click="share">
@@ -19,10 +19,6 @@
 
 		<!-- pannel right -->
 		<div class="header-right flex_center">
-			<div class="header-right-item flex_center" @click="toGit">
-				<icon name="github" scale="1.8" />
-				<span class="visible-xl visible-lg">开源地址</span>
-			</div>
 			<div
 				v-if="Number(mine_room_id) === Number(room_id)"
 				:class="[
@@ -124,7 +120,7 @@ export default {
       return !this.mine_room_id ? "创建房间" : "我的房间";
     },
     copyText() {
-      return "分享内容";
+      return "此功能待开发";
     },
     isMineRoom() {
       return Number(this.room_id) === Number(this.mine_room_id);

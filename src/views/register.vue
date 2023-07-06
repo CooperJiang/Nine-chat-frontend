@@ -3,7 +3,7 @@
 		<div class="login-container">
 			<div class="logo">
 				<img src="../assets/logo.gif" />
-				<span class="logo-name">小九音乐聊天室</span>
+				<span class="logo-name">音乐聊天室</span>
 			</div>
 
 			<div class="form">
