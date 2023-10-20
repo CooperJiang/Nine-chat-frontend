@@ -1,3 +1,4 @@
+import store from '@/store';
 const themes = {};
 
 const themeFiles = require.context('./modules', true, /\.js$/);
@@ -16,6 +17,7 @@ const changeStyle = obj => {
 
 export const setTheme = themeName => {
 	localStorage.setItem('theme', themeName);
+	store.commit('setTheme', themeName)
 	const isHasTheme = Object.keys(themes).includes(themeName);
 	if (isHasTheme) {
 		const themeConfig = themes[themeName];

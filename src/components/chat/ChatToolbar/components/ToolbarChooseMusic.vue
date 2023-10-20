@@ -62,12 +62,16 @@ export default {
     },
     /* 搜索歌曲 */
     async search() {
-      if (!this.params.keyword) return;
-      this.loading = true;
-      const res = await search(this.params);
-      this.loading = false;
-      this.musicList = res.data;
-      this.isShowMusic = true;
+      try {
+        if (!this.params.keyword) return;
+        this.loading = true;
+        const res = await search(this.params);
+        this.loading = false;
+        this.musicList = res.data;
+        this.isShowMusic = true;
+      } catch (error) {
+        this.loading = false;
+      }
     },
     /* 客户端点歌请求 */
     chooseMusic(musicInfo) {

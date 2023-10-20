@@ -126,6 +126,7 @@ export function emotion(res) {
 }
 
 export function replaceEmotionText(content) {
+	if(!content) return ''
 	return content.replace(/<\/?.+?>/g, '').replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, emotion);
 }
 

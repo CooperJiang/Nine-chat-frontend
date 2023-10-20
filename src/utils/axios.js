@@ -26,7 +26,6 @@ service.interceptors.response.use(
 		return res;
 	},
 	error => {
-		console.log('error: ', { error });
 		if (error.message === 'timeout of 5000ms exceeded') {
 			Message.error('请求超时，请检查您的网络状态或重新请求！');
 		}

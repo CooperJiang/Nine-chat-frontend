@@ -26,6 +26,7 @@ export default function getDefaultValue() {
 		showHistoryBarrageInfo: true,
 		showBarrageImg: false,
 		showBarrageAvatar: true,
-		theme: 'black'
+		theme: 'black',
+		is_screen: false
 	};
 }

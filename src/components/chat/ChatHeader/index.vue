@@ -124,7 +124,7 @@ export default {
       return !this.mine_room_id ? "创建房间" : "我的房间";
     },
     copyText() {
-      return "分享内容";
+      return `听歌、聊天、交友、互助、欢迎来到 ${this.room_info?.room_name || '音乐聊天室'},前往 ${window.location.origin} 试试吧！`;
     },
     isMineRoom() {
       return Number(this.room_id) === Number(this.mine_room_id);

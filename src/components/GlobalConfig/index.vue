@@ -39,6 +39,9 @@
 			<el-form-item label="是否显示弹幕头像">
 				<el-switch v-model="showBarrageAvatar"></el-switch>
 			</el-form-item>
+      <el-form-item label="是否显示区域全屏">
+				<el-switch v-model="is_screen"></el-switch>
+			</el-form-item>
 		</el-form>
 	</div>
 </template>
@@ -127,6 +130,14 @@ export default {
       },
       set(value) {
         return this.setGlobalRoomConfig({ key: "showBarrageAvatar", value });
+      },
+    },
+    is_screen: {
+      get() {
+        return this.$store.state.is_screen;
+      },
+      set(value) {
+        return this.setGlobalRoomConfig({ key: "is_screen", value });
       },
     },
   },

@@ -2,7 +2,7 @@
 	<div class="chat" :style="{ backgroundImage: `url(${room_bg})` }">
 		<!-- 主要面板 -->
 		<transition name="message-panel" mode="out-in">
-			<div v-if="showChatPanle" class="chat-container">
+			<div v-if="showChatPanle" class="chat-container" :class="{full_screen: is_screen}">
 				<div class="chat-container-header">
 					<chat-header ref="header" />
 				</div>
@@ -195,6 +195,7 @@ export default {
   },
   computed: {
     ...mapState([
+      "is_screen",
       "room_id",
       "un_read_msg_num",
       "pre_img",
@@ -458,6 +459,17 @@ export default {
     top: 0 !important;
     border-radius: 0 !important;
   }
+}
+
+.full_screen{
+  position: fixed;
+  width: 100vw !important;
+  height: 100vh !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: 0 !important;
+  border-radius: 0 !important;
 }
 .chat {
   width: 100vw;

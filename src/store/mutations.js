@@ -13,6 +13,10 @@ export default {
 		state.token = token;
 	},
 
+	setTheme(state, theme){
+		state.theme = theme;
+	},
+
 	setUserInfo(state, user_info) {
 		state.user_info = user_info;
 	},

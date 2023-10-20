@@ -1,6 +1,5 @@
 <template>
 	<div class="barrage">
-		========{{ showBarrageImg }}
 		<Barrage :data="data" style="height: 400px" :barrage-style="barrageStyle" show-area="top" touch-pause :defer="1" :track-height="50" :speed="20">
 			<template #default="data">
 				<div v-if="data.message_type === 'text'" :class="[{mine: data.user_id === mine_id}, 'barrage-wapper']">
