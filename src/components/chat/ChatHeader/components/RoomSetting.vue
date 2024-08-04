@@ -50,14 +50,13 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { updateRoomInfo } from "@/api/chat";
-import config from '@/config'
 
 export default {
   name: "PersionInfo",
   components: {},
   data() {
     return {
-      uploadUrl: config.file_upload_url,
+      uploadUrl: `${process.env.VUE_APP_BASE_API}/upload/file`,
       imageUrl: "",
       uuid: "",
       form: {
@@ -95,8 +94,8 @@ export default {
   methods: {
     ...mapActions(["getRoomInfo"]),
     handleAvatarSuccess(res) {
-      if (!res.data[0].url) return this.$message.error("上传头像失败");
-      this.form.room_logo = res.data[0].url;
+      if (!res.success) return this.$message.error("上传头像失败");
+      this.form.room_logo = res.data;
     },
     beforeAvatarUpload(file) {
       const isLt1M = file.size / 1024 / 1024 < 1;

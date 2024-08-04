@@ -6,45 +6,52 @@
 
 <script>
 import { mapState } from "vuex";
-import { setTheme, setPostMessageHandle } from "@/theme";
+import { setTheme } from "@/theme";
+
 export default {
-	data(){
+	data() {
 		return {
-			sendMsgFromParentWindow: null
-		}
+			sendMsgFromParentWindow: null,
+			ignoreNextMessage: false,
+		};
 	},
-	computed:{
+	computed: {
 		...mapState(["theme"]),
 	},
-	methods:{
-		messageHandler(event){
-			const { type } = event.data
-    	if(type === 'theme') {
-				const THEME = event.data.data === 'dark' ? 'black' : 'default'
-			};
-			if(type === 'token'){
-				console.log('event.data.data: ', event.data.data);
-
-				localStorage.chat_token = event.data.data;
-        this.$router.push("/");
-			}
-			setTheme(THEME)
-			this.sendMsgFromParentWindow = (message) => {
-				event.source.postMessage(message, event.origin);
-			}
+	watch: {
+		theme(val) {
+			if (!val || !this.sendMsgFromParentWindow) return;
+			this.ignoreNextMessage = true;
+			this.sendMsgFromParentWindow({ type: 'theme', data: val === 'default' ? 'light' : 'dark' });
 		}
 	},
-	mounted(){
+	mounted() {
 		window.addEventListener('message', this.messageHandler);
 	},
-	beforeDestroy(){
+	beforeDestroy() {
 		window.removeEventListener('message', this.messageHandler);
 	},
-	watch:{
-		theme(val){
-			if(!val || !this.sendMsgFromParentWindow) return;
-			console.log('theme: ', val, val === 'default' ? 'light' : 'dark');
-			this.sendMsgFromParentWindow({ type: 'theme', data: val === 'default' ? 'light' : 'dark' })
+	methods: {
+		messageHandler(event) {
+			const { type } = event.data;
+			if (this.ignoreNextMessage) {
+				this.ignoreNextMessage = false;
+				return;
+			}
+
+			if (type === 'theme') {
+				const THEME = event.data.data === 'dark' ? 'black' : 'default';
+				setTheme(THEME);
+			}
+
+			if (type === 'token') {
+				localStorage.chat_token = event.data.data;
+				this.$router.push("/");
+			}
+
+			this.sendMsgFromParentWindow = (message) => {
+				event.source.postMessage(message, event.origin);
+			};
 		}
 	}
 }

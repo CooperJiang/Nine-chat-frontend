@@ -41,7 +41,7 @@ export default {
       loading: false,
       params: {
         page: 1,
-        pagesize: 30,
+        pagesize: 90,
         keyword: "",
       },
     };

@@ -2,7 +2,7 @@
 	<div class="global-config">
 		<el-form label-position="left" label-width="140px">
 			<el-form-item label="主题设置">
-				<el-radio-group v-model="theme" @change="changeTheme">
+				<el-radio-group v-model="theme">
 					<el-radio style="margin: 5px" label="default" border size="mini">默认主题</el-radio>
 					<el-radio style="margin: 5px" label="black" border size="mini">暗黑主题</el-radio>
 					<el-radio style="margin: 5px" label="transparent" border size="mini">透明主题</el-radio>
@@ -39,7 +39,7 @@
 			<el-form-item label="是否显示弹幕头像">
 				<el-switch v-model="showBarrageAvatar"></el-switch>
 			</el-form-item>
-      <el-form-item label="是否显示区域全屏">
+			<el-form-item label="是否显示区域全屏">
 				<el-switch v-model="is_screen"></el-switch>
 			</el-form-item>
 		</el-form>
@@ -48,7 +48,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { setTheme } from "@/theme";
 
 export default {
   computed: {
@@ -147,9 +146,6 @@ export default {
       "clearTipsInfo",
       "clearNoticeInfo",
     ]),
-    changeTheme(val) {
-      setTheme(val);
-    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<div class="chat" :style="{ backgroundImage: `url(${room_bg})` }">
+	<div class="chat" :style="backgroundImage && { backgroundImage: `url(${room_bg})` }">
 		<!-- 主要面板 -->
 		<transition name="message-panel" mode="out-in">
 			<div v-if="showChatPanle" class="chat-container" :class="{full_screen: is_screen}">
@@ -56,7 +56,7 @@ import MessagePanel from "@/components/Chat/MessagePanel";
 import MusicPlayer from "@/components/Chat/MusicPlayer";
 import ChatProgress from "@/components/Chat/ChatProgress";
 import PreImg from "@/components/PreImg";
-// import bulletChat from '@/components/BulletChat'
+// import BulletChat from '@/components/BulletChat'
 import Barrage from '@/components/Barrage'
 import { setTheme } from "@/theme";
 
@@ -418,10 +418,6 @@ export default {
       return false;
     },
 
-    hanlderCloseDialog(){
-      this.logout()
-    },
-
     /* 初始化全部配置，拿到本地缓存的历史配置,并设置主题 */
     initLocalStorageConfig() {
       const storageKeys = [
@@ -440,8 +436,6 @@ export default {
           localStorage[key] &&
           this.setGlobalRoomConfig({ key, value:  key === "theme" ? localStorage[key] : JSON.parse(localStorage[key])})
       );
-      const theme = localStorage.theme || "default";
-      setTheme(theme);
     },
   }
 };
@@ -474,7 +468,7 @@ export default {
 .chat {
   width: 100vw;
   height: 100vh;
-  background: url("https://public-1300678944.cos.ap-shanghai.myqcloud.com/blog/1636699165011bg.jpeg");
+  background: url("../../assets/background.gif");
   background-size: cover;
   &-container {
     position: fixed;

@@ -54,9 +54,8 @@
 <script>
 import axios from "axios";
 import ChatToolbar from "@/components/Chat/ChatToolbar";
-import config from '@/config/index.js'
 
-const {file_upload_url} = config
+const file_upload_url = `${process.env.VUE_APP_BASE_API}/upload/file`
 export default {
   components: { ChatToolbar },
   data() {
@@ -93,7 +92,6 @@ export default {
           this.quoteMessage && (data.quote_message = this.quoteMessage);
           this.$socket.client.emit("message", data);
         }
-
         /* 如果没有文字消息，只有资源文件[图片|其他文件],那么我们先上传文件到服务器拿到资源文件地址，再对ws发送消息 */
         if (!this.message && this.fileInfo) {
           const { name, file, ext, size } = this.fileInfo;
@@ -106,7 +104,7 @@ export default {
             config
           );
           /* 非文字型消息都按这个格式来序列化 */
-          const content = { name, size, ext, url: res.data.data[0].url };
+          const content = { name, size, ext, url: res.data.data };
           const data = {
             message_type: ext,
             message_content: JSON.stringify(content),

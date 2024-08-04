@@ -94,7 +94,6 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { createRoom } from "@/api/chat";
-import config from '@/config'
 
 export default {
   name: "RoomInfo",
@@ -106,7 +105,7 @@ export default {
   },
   data() {
     return {
-      uploadUrl: config.file_upload_url,
+      uploadUrl: `${process.env.VUE_APP_BASE_API}/upload/file`,
       showJoinModal: false,
       showPasswordModal: false,
       activeRoomId: null,
@@ -187,7 +186,7 @@ export default {
     },
 
     handleAvatarSuccess(res, file) {
-      this.ruleform.room_logo = res.data[0].url;
+      this.ruleform.room_logo = res.data;
       this.preImage = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {

@@ -21,7 +21,7 @@
 		<div class="header-right flex_center">
 			<div class="header-right-item flex_center" @click="toGit">
 				<icon name="github" scale="1.8" />
-				<span class="visible-xl visible-lg">开源地址</span>
+				<span class="visible-xl ">开源地址</span>
 			</div>
 			<div
 				v-if="Number(mine_room_id) === Number(room_id)"
@@ -33,7 +33,7 @@
 				@click.stop="openBox(4)"
 			>
 				<icon name="chat-header-setting" scale="1.8" class="icon" />
-				<span class="visible-xl visible-lg">管理</span>
+				<span class="visible-xl ">管理</span>
 			</div>
 			<div
 				:class="[
@@ -44,7 +44,7 @@
 				@click.stop="openBox(1)"
 			>
 				<icon name="chat-online" scale="1.8" class="icon" />
-				<span class="visible-xl visible-lg"> 在线[{{ onLineUserNum }}] </span>
+				<span class="visible-xl "> 在线[{{ onLineUserNum }}] </span>
 			</div>
 			<div
 				:class="[
@@ -55,7 +55,7 @@
 				@click.stop="openBox(2)"
 			>
 				<icon name="chat-room" scale="1.8" class="icon" />
-				<span class="visible-xl visible-lg">房间[{{ onLineRoomNum }}]</span>
+				<span class="visible-xl ">房间[{{ onLineRoomNum }}]</span>
 			</div>
 			<div
 				:class="[
@@ -66,11 +66,11 @@
 				@click.stop="openBox(3)"
 			>
 				<icon name="chat-mine" scale="1.8" class="icon" />
-				<span class="visible-xl visible-lg">我的</span>
+				<span class="visible-xl ">我的</span>
 			</div>
 			<div class="header-right-item flex_center" @click="handlerLogout">
 				<icon name="chat-go" scale="1.8" class="icon" />
-				<span class="visible-xl visible-lg">登出</span>
+				<span class="visible-xl ">登出</span>
 			</div>
 		</div>
 		<!-- popup -->

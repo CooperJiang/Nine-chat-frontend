@@ -1,4 +1,5 @@
 import getDefaultValue from './default';
+import { setTheme } from '@/theme';
 
 export default {
 	setSignInPopup(state, isShow) {
@@ -13,7 +14,7 @@ export default {
 		state.token = token;
 	},
 
-	setTheme(state, theme){
+	setTheme(state, theme) {
 		state.theme = theme;
 	},
 
@@ -121,5 +122,8 @@ export default {
 	setGlobalRoomConfig(state, { key, value }) {
 		state[key] = value;
 		localStorage.setItem(key, typeof value === 'boolean' ? JSON.stringify(value) : value);
+		if (key === 'theme') {
+			setTheme(value);
+		}
 	}
 };

@@ -75,7 +75,7 @@ export default {
             this.data = res.data
             this.params.page = res.data.length < this.params.pagesize ? 1 : ++this.params.page
             setTimeout(() => {
-                this.queryMsg()
+                res.data?.length && this.queryMsg()
             }, 3500);
         }
     },
